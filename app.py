@@ -152,7 +152,11 @@ with st.sidebar:
 
     st.caption("Ordenar y vista")
     sort_by = st.selectbox("Ordenar por", options=["Más recientes", "A-Z", "Semana", "Año"], index=0)
-    view = st.segmented_control("Vista", options=["Cards", "Tabla"], default=qp.get("view", ["Cards"])[0] if "view" in qp else "Cards")
+    view = st.segmented_control(
+    "Vista",
+    options=["Cards", "Tabla"],
+    default_value=qp.get("view", ["Cards"])[0] if "view" in qp else "Cards"
+)
 
     st.caption("Paginación")
     page_size = st.select_slider("Items por página", options=[6, 9, 12, 15, 24], value=int(qp.get("ps", [9])[0]) if "ps" in qp else 9)
