@@ -1,4 +1,4 @@
-- title: Entrega 01 — Voz (ASR/NLU) + Respuestas
+- title: Entrega 01 — Introducción
   slug: entrega-01
   year: 2025
   course: Interfaces Multimodales
@@ -17,7 +17,7 @@
   - GUI
   device: PC
   cover: assets/covers/entrega_01.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
+  summary: 'Breve descripción de la entrega: objetivo, interaccion y resultado observado.'
   role: Estudiante
   tools:
   - Figma
