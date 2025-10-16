@@ -110,7 +110,6 @@ projects_raw = get_projects()
 # QUERY PARAMS helpers (compat)
 # -----------------------------
 def _get_qp():
-    # Devuelve un dict con listas (como la API de Streamlit)
     try:
         # API nueva
         return {k: list(v) if isinstance(v, list) else [v] for k, v in st.query_params.items()}
@@ -119,7 +118,6 @@ def _get_qp():
         return st.experimental_get_query_params()
 
 def _set_qp(**kwargs):
-    # Limpia valores vacíos y setea según API disponible
     clean = {k: v for k, v in kwargs.items() if v not in (None, "", [], {}, set())}
     try:
         st.query_params.clear()
@@ -170,12 +168,27 @@ with st.sidebar:
     st.caption("Ordenar y vista")
     sort_by = st.selectbox("Ordenar por", options=["Más recientes", "A-Z", "Semana", "Año"], index=0)
 
-    # ✅ FIX: usar default_value (no 'default')
-    view = st.segmented_control(
-        "Vista",
-        options=["Cards", "Tabla"],
-        default_value=get_qp_first("view", "Cards")
-    )
+    # ---------- Vista: robust fallback ----------
+    def _pick_view(default_value:str):
+        opts = ["Cards", "Tabla"]
+        # 1) Intentar segmented_control (firmas nuevas)
+        if hasattr(st, "segmented_control"):
+            try:
+                return st.segmented_control("Vista", options=opts, default_value=default_value)
+            except TypeError:
+                # Algunas builds no aceptan default_value
+                try:
+                    chosen = st.segmented_control("Vista", options=opts)
+                    return chosen or default_value
+                except Exception:
+                    pass
+            except Exception:
+                pass
+        # 2) Fallback universal: radio horizontal
+        idx = 0 if default_value == "Cards" else 1
+        return st.radio("Vista", opts, index=idx, horizontal=True)
+
+    view = _pick_view(get_qp_first("view", "Cards"))
 
     st.caption("Paginación")
     ps_default = int(get_qp_first("ps", "9"))
@@ -344,4 +357,3 @@ else:
 # NOTA / CTA
 # -----------------------------
 st.info("Ve a **Proyectos** para filtrar por modalidad (voz, gestos, hápticos), dispositivo (Quest, móvil, PC), tipo de entrega y semana. También puedes compartir esta vista: la URL guarda tus filtros.")
-
