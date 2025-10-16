@@ -92,7 +92,6 @@ hr{ border:none; border-top:1px solid #1a1d33; margin: .8rem 0 1rem 0 }
 @lru_cache(maxsize=1)
 def get_projects():
     data = load_projects()
-    # Normalización light para evitar KeyError
     for p in data:
         p.setdefault("title", "Proyecto")
         p.setdefault("slug", "")
@@ -102,21 +101,39 @@ def get_projects():
         p.setdefault("device", "")
         p.setdefault("cover", "")
         p.setdefault("featured", False)
-        p.setdefault("type", "")  # entrega, prototipo, demo, etc.
+        p.setdefault("type", "")
     return data
 
 projects_raw = get_projects()
 
 # -----------------------------
-# QUERY PARAMS (persistencia)
+# QUERY PARAMS helpers (compat)
 # -----------------------------
-qp = st.query_params  # Streamlit 1.33+
-def set_qp(**kwargs):
-    # limpia vacíos para URLs limpias
-    clean = {k: v for k, v in kwargs.items() if v not in (None, "", [], {})}
-    st.query_params.clear()
-    for k, v in clean.items():
-        st.query_params[k] = v
+def _get_qp():
+    # Devuelve un dict con listas (como la API de Streamlit)
+    try:
+        # API nueva
+        return {k: list(v) if isinstance(v, list) else [v] for k, v in st.query_params.items()}
+    except Exception:
+        # API experimental
+        return st.experimental_get_query_params()
+
+def _set_qp(**kwargs):
+    # Limpia valores vacíos y setea según API disponible
+    clean = {k: v for k, v in kwargs.items() if v not in (None, "", [], {}, set())}
+    try:
+        st.query_params.clear()
+        for k, v in clean.items():
+            st.query_params[k] = v
+    except Exception:
+        st.experimental_set_query_params(**clean)
+
+qp = _get_qp()
+
+def get_qp_first(key:str, default:str=""):
+    if key not in qp: return default
+    val = qp.get(key, [])
+    return val[0] if isinstance(val, list) and val else default
 
 # -----------------------------
 # HEADER
@@ -124,7 +141,7 @@ def set_qp(**kwargs):
 st.markdown("# Portafolio Académico — **Interfaces Multimodales**")
 st.caption("Universidad EAFIT · Camilo Seguro · 15 entregas")
 
-# MÉTRICAS (sobre dataset completo, no filtrado)
+# MÉTRICAS (dataset completo)
 col1, col2, col3, col4 = st.columns(4)
 with col1: st.metric("Entregas", len(projects_raw))
 with col2: st.metric("Modalidades", len(set(chain.from_iterable(p.get("modality", []) for p in projects_raw))))
@@ -138,28 +155,31 @@ st.divider()
 # -----------------------------
 with st.sidebar:
     st.subheader("Filtrar")
-    # Opciones dinámicas
     all_modalities = sorted(set(chain.from_iterable(p.get("modality", []) for p in projects_raw)))
     all_devices = sorted({p.get("device","") for p in projects_raw if p.get("device")})
     all_years = sorted({p.get("year",0) for p in projects_raw if p.get("year")}, reverse=True)
 
-    q_default = qp.get("q", [""])[0] if "q" in qp else ""
+    q_default = get_qp_first("q", "")
     q = st.text_input("Buscar (título, modalidad, semana…)", value=q_default, placeholder="Ej: voz, gestos, Quest, semana 6")
 
     sel_modal = st.multiselect("Modalidad", options=all_modalities, default=qp.get("mod", []))
     sel_dev = st.multiselect("Dispositivo", options=all_devices, default=qp.get("dev", []))
-    sel_year = st.multiselect("Año", options=all_years, default=[int(y) for y in qp.get("year", [])] if "year" in qp else [])
+    sel_year_defaults = [int(y) for y in qp.get("year", [])] if "year" in qp else []
+    sel_year = st.multiselect("Año", options=all_years, default=sel_year_defaults)
 
     st.caption("Ordenar y vista")
     sort_by = st.selectbox("Ordenar por", options=["Más recientes", "A-Z", "Semana", "Año"], index=0)
+
+    # ✅ FIX: usar default_value (no 'default')
     view = st.segmented_control(
-    "Vista",
-    options=["Cards", "Tabla"],
-    default_value=qp.get("view", ["Cards"])[0] if "view" in qp else "Cards"
-)
+        "Vista",
+        options=["Cards", "Tabla"],
+        default_value=get_qp_first("view", "Cards")
+    )
 
     st.caption("Paginación")
-    page_size = st.select_slider("Items por página", options=[6, 9, 12, 15, 24], value=int(qp.get("ps", [9])[0]) if "ps" in qp else 9)
+    ps_default = int(get_qp_first("ps", "9"))
+    page_size = st.select_slider("Items por página", options=[6, 9, 12, 15, 24], value=ps_default if ps_default in [6,9,12,15,24] else 9)
 
 # -----------------------------
 # APLICAR FILTROS
@@ -208,7 +228,7 @@ if featured:
         device = p.get("device","")
         st.markdown(f"""
         <div class="card">
-            <img class="card-cover" src="{cover}" />
+            <img class="card-cover" src="{cover}" alt="{p.get('title')}" />
             <div class="card-body">
                 <div class="card-title">{p.get('title')}</div>
                 <div class="card-sub">{mods} · Semana {p.get('week')} · {p.get('year')}</div>
@@ -226,18 +246,30 @@ if featured:
 # -----------------------------
 # LISTA PRINCIPAL (Cards / Tabla) con paginación
 # -----------------------------
-# Actualiza query params para compartir filtros
-set_qp(q=q, mod=sel_modal, dev=sel_dev, year=[str(y) for y in sel_year], view=view, ps=str(page_size))
+# Persistencia de filtros en URL
+_set_qp(
+    q=q,
+    mod=sel_modal,
+    dev=sel_dev,
+    year=[str(y) for y in sel_year],
+    view=view,
+    ps=str(page_size)
+)
 
+# Paginación
 total = len(filtered)
 st.subheader(f"Proyectos ({total})")
 
 if total == 0:
     st.info("No hay resultados con esos filtros. Intenta remover alguno o cambiar la búsqueda.")
 else:
-    # Paginación
-    page = int(qp.get("page", [1])[0]) if "page" in qp else 1
+    page_str = get_qp_first("page", "1")
+    try:
+        page = max(1, int(page_str))
+    except ValueError:
+        page = 1
     max_page = max(1, (total + page_size - 1) // page_size)
+
     col_a, col_b, col_c = st.columns([1,2,1])
     with col_a:
         if st.button("← Anterior", disabled=(page <= 1)):
@@ -248,8 +280,16 @@ else:
         if st.button("Siguiente →", disabled=(page >= max_page)):
             page = min(max_page, page + 1)
 
-    # Persist page in URL
-    set_qp(q=q, mod=sel_modal, dev=sel_dev, year=[str(y) for y in sel_year], view=view, ps=str(page_size), page=str(page))
+    # Actualiza página en URL
+    _set_qp(
+        q=q,
+        mod=sel_modal,
+        dev=sel_dev,
+        year=[str(y) for y in sel_year],
+        view=view,
+        ps=str(page_size),
+        page=str(page)
+    )
 
     start = (page - 1) * page_size
     end = start + page_size
@@ -260,7 +300,6 @@ else:
         for p in page_items:
             cover = p.get("cover") or ""
             if not cover:
-                # skeleton si no hay cover
                 st.markdown("""
                     <div class="card">
                         <div class="skeleton"></div>
@@ -289,7 +328,6 @@ else:
                 """, unsafe_allow_html=True)
         st.markdown("</div>", unsafe_allow_html=True)
     else:
-        # Vista tabla
         import pandas as pd
         df = pd.DataFrame([{
             "Título": p.get("title"),
@@ -306,3 +344,4 @@ else:
 # NOTA / CTA
 # -----------------------------
 st.info("Ve a **Proyectos** para filtrar por modalidad (voz, gestos, hápticos), dispositivo (Quest, móvil, PC), tipo de entrega y semana. También puedes compartir esta vista: la URL guarda tus filtros.")
+
