@@ -8,7 +8,7 @@ projects = load_projects()
 projects = sorted(projects, key=lambda p: (p.get("year",0), p.get("week",0)))
 
 st.markdown("# Portafolio Academico — **Interfaces Multimodales**")
-st.caption("Universidad EAFIT · Solo trabajos de clase (15 entregas)")
+st.caption("Universidad EAFIT · Camilo Seguro (15 entregas)")
 
 col1, col2, col3, col4 = st.columns(4)
 with col1: st.metric("Entregas", len(projects))
