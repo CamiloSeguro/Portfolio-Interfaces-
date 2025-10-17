@@ -94,9 +94,9 @@
   output_types: [GUI]
   device: PC
   cover: assets/covers/entrega_05.jpg
-  cover_imgur: https://i.imgur.com/ABCD05.jpg
+  cover_imgur: https://i.imgur.com/YC3sMGa.png
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://texto-ingles.streamlit.app/'}
   order: 5
 
 - title: Entrega 06 — Analisis de texto Español
