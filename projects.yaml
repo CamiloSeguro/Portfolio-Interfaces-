@@ -5,621 +5,224 @@
   instructor: Nombre Profesor/a
   week: 1
   deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Voz
-  input_types:
-  - Microfono
-  output_types:
-  - TTS
-  - GUI
+  tags: [Clase, Multimodal]
+  modality: [Voz]
+  input_types: [Microfono]
+  output_types: [TTS, GUI]
   device: PC
-  cover: https://imgur.com/a/2h2QMoP
-  summary: 'Breve descripción de la entrega: objetivo, interaccion y resultado observado.'
+  cover: entrega_01.png
+  cover_imgur: https://i.imgur.com/ABCD01.jpg
+  summary: 'Breve descripción de la entrega: objetivo, interacción y resultado observado.'
   role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
+  tools: [Figma, Prototipo]
+  objectives: [Objetivo 1, Objetivo 2, Objetivo 3]
+  results: [Resultado 1, Resultado 2]
+  metrics: [Tiempo de tarea, Errores, SUS]
   grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 1
-- title: Entrega 02 — Gestos con camara
+
+- title: Entrega 02 — Gestos con cámara
   slug: entrega-02
   year: 2025
   course: Interfaces Multimodales
   instructor: Nombre Profesor/a
   week: 2
   deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Gestos
-  input_types:
-  - Camara
-  output_types:
-  - GUI
+  tags: [Clase, Multimodal]
+  modality: [Gestos]
+  input_types: [Camara]
+  output_types: [GUI]
   device: PC
-  cover: assets/covers/entrega_01.png
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
+  cover: assets/covers/entrega_02.png
+  cover_imgur: https://i.imgur.com/ABCD02.jpg
+  summary: 'Breve descripción de la entrega: objetivo, interacción y resultado observado.'
   role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
+  tools: [Figma, Prototipo]
+  objectives: [Objetivo 1, Objetivo 2, Objetivo 3]
+  results: [Resultado 1, Resultado 2]
+  metrics: [Tiempo de tarea, Errores, SUS]
   grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 2
-- title: Entrega 03 — Multitouch + Manipulacion
+
+- title: Entrega 03 — Multitouch + Manipulación
   slug: entrega-03
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 3
   deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Multitouch
-  input_types:
-  - Pantalla tactil
-  output_types:
-  - GUI
-  device: Movil/Tablet
+  modality: [Multitouch]
+  input_types: [Pantalla táctil]
+  output_types: [GUI]
+  device: Móvil/Tablet
   cover: assets/covers/entrega_03.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
+  cover_imgur: https://i.imgur.com/ABCD03.jpg
+  summary: 'Breve descripción de la entrega: objetivo, interacción y resultado observado.'
   role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
+  tools: [Figma, Prototipo]
+  objectives: [Objetivo 1, Objetivo 2, Objetivo 3]
+  results: [Resultado 1, Resultado 2]
+  metrics: [Tiempo de tarea, Errores, SUS]
   grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 3
-- title: Entrega 04 — Haptics basico
+
+- title: Entrega 04 — Haptics básico
   slug: entrega-04
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 4
   deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Haptics
-  input_types:
-  - Control haptico
-  output_types:
-  - Vibracion
+  modality: [Haptics]
+  input_types: [Control háptico]
+  output_types: [Vibración]
   device: PC
-  cover: assets/covers/entrega_01.png
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
+  cover: assets/covers/entrega_04.png
+  cover_imgur: https://i.imgur.com/ABCD04.jpg
+  summary: 'Breve descripción de la entrega.'
   role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  tools: [Figma, Prototipo]
   order: 4
+
 - title: Entrega 05 — Eye tracking (mock/demo)
   slug: entrega-05
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 5
   deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Eye tracking
-  input_types:
-  - Gaze (simulado)
-  output_types:
-  - GUI
+  modality: [Eye tracking]
+  input_types: [Gaze (simulado)]
+  output_types: [GUI]
   device: PC
   cover: assets/covers/entrega_05.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD05.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 5
-- title: Entrega 06 — Audio reactivo / Sonificacion
+
+- title: Entrega 06 — Audio reactivo / Sonificación
   slug: entrega-06
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 6
-  deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Audio Reactivo
-  input_types:
-  - Microfono
-  output_types:
-  - Audio
+  modality: [Audio Reactivo]
+  input_types: [Micrófono]
+  output_types: [Audio]
   device: PC
   cover: assets/covers/entrega_06.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD06.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 6
+
 - title: Entrega 07 — Comandos por voz + GUI
   slug: entrega-07
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 7
-  deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Voz
-  - GUI
-  input_types:
-  - Microfono
-  - Teclado/Mouse
-  output_types:
-  - TTS
-  - GUI
+  modality: [Voz, GUI]
+  input_types: [Micrófono, Teclado/Mouse]
+  output_types: [TTS, GUI]
   device: PC
   cover: assets/covers/entrega_07.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD07.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 7
+
 - title: Entrega 08 — AR marker based
   slug: entrega-08
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 8
-  deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - AR
-  input_types:
-  - Camara
-  output_types:
-  - AR Overlay
-  device: Movil
+  modality: [AR]
+  input_types: [Cámara]
+  output_types: [AR Overlay]
+  device: Móvil
   cover: assets/covers/entrega_08.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Unity
-  - C#
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD08.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 8
+
 - title: Entrega 09 — VR prototipo guiado
   slug: entrega-09
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 9
-  deliverable: Practica
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - VR
-  input_types:
-  - Controladores VR
-  output_types:
-  - VR HUD
+  modality: [VR]
+  input_types: [Controladores VR]
+  output_types: [VR HUD]
   device: Quest 3
   cover: assets/covers/entrega_09.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Unity
-  - C#
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD09.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 9
-- title: Entrega 10 — Fusion de senales (voz+gesto)
+
+- title: Entrega 10 — Fusión de señales (voz+gesto)
   slug: entrega-10
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 10
-  deliverable: Proyecto
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Voz
-  - Gestos
-  input_types:
-  - Microfono
-  - Camara
-  output_types:
-  - Audio
-  - GUI
-  device: PC+Movil
+  modality: [Voz, Gestos]
+  input_types: [Micrófono, Cámara]
+  output_types: [Audio, GUI]
+  device: PC+Móvil
   cover: assets/covers/entrega_10.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD10.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 10
+
 - title: Entrega 11 — Accesibilidad (lectores, contraste)
   slug: entrega-11
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 11
-  deliverable: Informe
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Accesibilidad
-  input_types:
-  - Teclado/ScreenReader
-  output_types:
-  - GUI/TTS
+  modality: [Accesibilidad]
+  input_types: [Teclado/ScreenReader]
+  output_types: [GUI/TTS]
   device: PC
   cover: assets/covers/entrega_11.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Streamlit
-  - Python
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD11.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 11
+
 - title: Entrega 12 — Dispositivo externo (ESP32/BT)
   slug: entrega-12
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 12
-  deliverable: Demo
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Dispositivo Externo
-  input_types:
-  - BT/Serial
-  output_types:
-  - Actuadores
+  modality: [Dispositivo Externo]
+  input_types: [BT/Serial]
+  output_types: [Actuadores]
   device: ESP32
   cover: assets/covers/entrega_12.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD12.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 12
-- title: Entrega 13 — Evaluacion heuristica multimodal
+
+- title: Entrega 13 — Evaluación heurística multimodal
   slug: entrega-13
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 13
-  deliverable: Informe
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Evaluacion
-  input_types:
-  - Encuestas/Heuristicas
-  output_types:
-  - Reportes
+  modality: [Evaluación]
+  input_types: [Encuestas/Heurísticas]
+  output_types: [Reportes]
   device: PC
   cover: assets/covers/entrega_13.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Streamlit
-  - Python
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD13.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 13
-- title: Entrega 14 — Iteracion final con metricas
+
+- title: Entrega 14 — Iteración final con métricas
   slug: entrega-14
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 14
-  deliverable: Proyecto
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Iteracion
-  input_types:
-  - Microfono
-  - Camara
-  output_types:
-  - GUI
+  modality: [Iteración]
+  input_types: [Micrófono, Cámara]
+  output_types: [GUI]
   device: PC
   cover: assets/covers/entrega_14.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD14.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 14
+
 - title: Entrega 15 — Demo final / Video
   slug: entrega-15
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 15
-  deliverable: Demo
-  tags:
-  - Clase
-  - Multimodal
-  modality:
-  - Demo
-  input_types:
-  - Microfono
-  - Camara
-  - Control
-  output_types:
-  - Video Demo
+  modality: [Demo]
+  input_types: [Micrófono, Cámara, Control]
+  output_types: [Video Demo]
   device: PC/Quest 3
   cover: assets/covers/entrega_15.jpg
-  summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
-  role: Estudiante
-  tools:
-  - Figma
-  - Prototipo
-  objectives:
-  - Objetivo 1
-  - Objetivo 2
-  - Objetivo 3
-  results:
-  - Resultado 1
-  - Resultado 2
-  metrics:
-  - Tiempo de tarea
-  - Errores
-  - SUS
-  grade: null
-  links:
-    repo: ''
-    report: ''
-    video: ''
-    demo: ''
+  cover_imgur: https://i.imgur.com/ABCD15.jpg
+  summary: 'Breve descripción de la entrega.'
   order: 15
