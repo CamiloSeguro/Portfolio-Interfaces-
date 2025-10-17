@@ -22,13 +22,12 @@ st.markdown("""
 html, body, .stApp{background:var(--bg);color:var(--txt);}
 .block-container{max-width:1200px;padding-top:1rem;}
 
-/* GRID compacto */
+/* GRID compacto y responsivo */
 .grid{
   display:grid;
   grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
   gap:14px;
 }
-@media(min-width:1400px){ .grid{ grid-template-columns:repeat(4,1fr);} }
 
 /* CARD */
 .card{
@@ -45,9 +44,16 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
   border-color:color-mix(in srgb,var(--ring) 60%,transparent);
   box-shadow:0 14px 26px rgba(106,139,255,.22);
 }
+
+/* Portada: altura fija para que no crezca gigante si no carga imagen */
 .cover{
-  width:100%; aspect-ratio:16/9; object-fit:cover; background:#0b0d1a;
+  width:100%;
+  height:140px;             /* <- compacta */
+  object-fit:cover;
+  background:#0b0d1a;
 }
+
+/* Contenido */
 .body{ padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; }
 .title{ font-weight:800; margin:0; font-size:.98rem; line-height:1.2; }
 .sub{ color:var(--muted); font-size:.8rem; display:flex; gap:6px; flex-wrap:wrap; }
@@ -69,14 +75,13 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
 .btn.secondary{ background:rgba(255,255,255,.06); color:#cfd6ff; }
 .btn:hover{ filter:brightness(1.05); border-color:#3b4163; }
 
-/* separadores y meta */
 hr{ border:none; border-top:1px solid #1b1e34; margin:.7rem 0 1rem 0; }
 .count{ color:var(--muted); }
 </style>
 """, unsafe_allow_html=True)
 
 # -----------------------------
-# IMGUR resolver
+# Helpers (portadas)
 # -----------------------------
 IMGUR_MAP = {}
 IMGUR_PLACEHOLDER = "https://i.imgur.com/U2p7Z3W.jpg"
@@ -106,6 +111,7 @@ def get_projects():
         p.setdefault("cover_imgur", "")
         p.setdefault("summary", "")
         p.setdefault("links", {})
+        p.setdefault("order", 0)
     return data
 
 projects = get_projects()
@@ -130,11 +136,8 @@ with col3:
     years = sorted({p.get("year",0) for p in projects if p.get("year")}, reverse=True)
     sel_year = st.selectbox("Año", ["(Todos)"] + [str(y) for y in years], index=0)
 with col4:
-    view_week = st.toggle("Agrupar por semana", value=False)
+    group_week = st.toggle("Agrupar por semana", value=False)
 
-# -----------------------------
-# FILTRADO
-# -----------------------------
 def match(p):
     haystack = " ".join([
         p.get("title",""), p.get("summary",""),
@@ -153,26 +156,25 @@ st.markdown(f"<span class='count'><b>{len(filtered)}</b> proyectos encontrados</
 st.markdown("<hr/>", unsafe_allow_html=True)
 
 # -----------------------------
-# RENDER: GRID COMPACTO
+# Plantilla HTML de tarjeta
 # -----------------------------
 def card_html(p):
     cover = resolve_imgur_cover(p)
     title = p.get("title")
-    week = p.get("week")
-    year = p.get("year")
-    modalities = p.get("modality", [])
-    chips = "".join(f"<span class='chip'>{m}</span>" for m in modalities[:3])  # máximo 3 visibles
-    device = p.get("device")
-    if device: chips += f"<span class='chip'>🎯 {device}</span>"
+    week, year = p.get("week"), p.get("year")
 
-    sub = f"<span class='badge week'>Semana {week}</span><span class='badge'>{year}</span>"
+    chips = "".join(f"<span class='chip'>{m}</span>" for m in p.get("modality", [])[:3])
+    if p.get("device"):
+        chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
+
+    meta = f"<span class='badge week'>Semana {week}</span><span class='badge'>{year}</span>"
+
     links = p.get("links", {})
     demo   = links.get("demo")
     repo   = links.get("repo")
     video  = links.get("video")
     report = links.get("report")
 
-    # Acciones (si no hay demo, se cae a slug o '#')
     btns = []
     if demo:   btns.append(f"<a class='btn' href='{demo}' target='_blank' rel='noopener'>Demo</a>")
     if repo:   btns.append(f"<a class='btn secondary' href='{repo}' target='_blank' rel='noopener'>Repo</a>")
@@ -180,45 +182,42 @@ def card_html(p):
     if report: btns.append(f"<a class='btn secondary' href='{report}' target='_blank' rel='noopener'>Reporte</a>")
     if not btns:
         btns.append("<a class='btn secondary' href='#'>Sin enlaces</a>")
-    actions = "".join(btns)
 
     return f"""
     <div class="card">
       <img class="cover" src="{cover}" alt="{title}" loading="lazy" referrerpolicy="no-referrer"/>
       <div class="body">
         <div class="title">{title}</div>
-        <div class="sub">{sub}</div>
+        <div class="sub">{meta}</div>
         <div class="chips">{chips}</div>
-        <div class="actions">{actions}</div>
+        <div class="actions">{''.join(btns)}</div>
       </div>
     </div>
     """
 
+# -----------------------------
+# RENDER: construir TODO en un solo HTML (clave para que el grid funcione)
+# -----------------------------
+def render_grid(items):
+    cards = [card_html(p) for p in items]
+    html = f"<div class='grid'>{''.join(cards)}</div>"
+    st.markdown(html, unsafe_allow_html=True)
+
 if not filtered:
     st.info("No hay resultados. Cambia los filtros o limpia la búsqueda.")
 else:
-    if view_week:
-        # Agrupado por (año, semana)
+    if group_week:
         groups = {}
         for p in filtered:
-            key = (p.get("year",0), p.get("week",0))
-            groups.setdefault(key, []).append(p)
-        # Orden descendente por año/semana
+            groups.setdefault((p.get("year",0), p.get("week",0)), []).append(p)
         for (yy, ww) in sorted(groups.keys(), reverse=True):
             st.markdown(f"### Semana {ww} · {yy}")
-            st.markdown("<div class='grid'>", unsafe_allow_html=True)
-            for p in groups[(yy, ww)]:
-                st.markdown(card_html(p), unsafe_allow_html=True)
-            st.markdown("</div>", unsafe_allow_html=True)
+            render_grid(groups[(yy, ww)])
             st.markdown("<hr/>", unsafe_allow_html=True)
     else:
-        # Grid plano
-        st.markdown("<div class='grid'>", unsafe_allow_html=True)
-        for p in filtered:
-            st.markdown(card_html(p), unsafe_allow_html=True)
-        st.markdown("</div>", unsafe_allow_html=True)
+        render_grid(filtered)
 
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 El botón ‘Demo’ usa `links.demo` desde tu YAML. Si no hay enlaces, se muestra ‘Sin enlaces’. Usa `cover_imgur` para portadas directas.")
+st.caption("💡 El grid funciona porque se renderiza en **una sola llamada** a Markdown. La portada usa altura fija (140px) para mantener tarjetas compactas.")
