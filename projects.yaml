@@ -64,7 +64,7 @@
   results: [Resultado 1, Resultado 2]
   metrics: [Tiempo de tarea, Errores, SUS]
   grade: null
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://ocr-audio-cs.streamlit.app/'}
   order: 3
 
 - title: Entrega 04 — Analisis de Sentimientos
