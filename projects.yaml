@@ -10,13 +10,13 @@
   links: {demo: 'https://introduccion-n.streamlit.app/'}
   order: 1
 
-- title: Entrega 02 — Gestos
+- title: Entrega 02 — Texto-Voz
   slug: entrega-02
   year: 2025
   week: 2
   cover_imgur: https://i.imgur.com/N6Arv8Z.png
   summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://gestos-cs.streamlit.app/'}
+  links: {demo: 'https://text-to-speech-cs.streamlit.app/'}
   order: 2
 
 - title: Entrega 03 — Análisis de Sentimiento
