@@ -127,7 +127,7 @@
   links: {demo: 'https://control-voz-mqtt.streamlit.app/'}
   order: 14
 
-- title: Entrega 15 — Interfaz Voz a Texto
+- title: Entrega 15 — Interfaz OCR
   slug: entrega-15
   year: 2025
   week: 15
