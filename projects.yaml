@@ -28,110 +28,110 @@
   links: {demo: 'https://voz-text.streamlit.app/'}
   order: 3
 
-- title: Entrega 04 — TF-IDF Español/Inglés
+- title: Entrega 04 — Interfaz OCR
   slug: entrega-04
   year: 2025
   week: 4
-  cover_imgur: https://i.imgur.com/fkQfLtL.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://tfidf-demo.streamlit.app/'}
-  order: 4
-
-- title: Entrega 05 — Análisis de texto inglés
-  slug: entrega-05
-  year: 2025
-  week: 5
-  cover_imgur: https://i.imgur.com/YC3sMGa.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://texto-ingles.streamlit.app/'}
-  order: 5
-
-- title: Entrega 06 — Análisis de texto Español
-  slug: entrega-06
-  year: 2025
-  week: 6
-  cover_imgur: https://i.imgur.com/IgEfzA8.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://texto-esp.streamlit.app/'}
-  order: 6
-
-- title: Entrega 07 — Reconocimiento de gestos (Yolo)
-  slug: entrega-07
-  year: 2025
-  week: 7
-  cover_imgur: https://i.imgur.com/EanoG0v.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://reconocimiento-de-gestos.streamlit.app/'}
-  order: 7
-
-- title: Entrega 08 — Reconocimiento de Objetos 
-  slug: entrega-08
-  year: 2025
-  week: 8
-  cover_imgur: https://i.imgur.com/CKsmfmw.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://deteccion-de-objetos.streamlit.app/#camara'}
-  order: 8
-
-- title: Entrega 09 — Chat PDF
-  slug: entrega-09
-  year: 2025
-  week: 9
-  cover_imgur: https://i.imgur.com/hH0RytL.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://chat-pdf-cs.streamlit.app/'}
-  order: 9
-
-- title: Entrega 10 — Imagen Text → Text
-  slug: entrega-10
-  year: 2025
-  week: 10
-  cover_imgur: https://i.imgur.com/ABCD10.jpg
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: ''}
-  order: 10
-
-- title: Entrega 11 — Reconocimiento de Imagen (Tablero)
-  slug: entrega-11
-  year: 2025
-  week: 11
-  cover_imgur: https://i.imgur.com/GBN2Qnw.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://reconocimiento-imagen-tablero.streamlit.app/'}
-  order: 11
-
-- title: Entrega 12 — Aplicación Tablero
-  slug: entrega-12
-  year: 2025
-  week: 12
-  cover_imgur: https://i.imgur.com/rujNLYE.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://aplicacion-tablero.streamlit.app/'}
-  order: 12
-
-- title: Entrega 13 — Control MQTT
-  slug: entrega-13
-  year: 2025
-  week: 13
-  cover_imgur: https://i.imgur.com/hGdFMP8.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://control-mqtt.streamlit.app/'}
-  order: 13
-
-- title: Entrega 14 — Control Voz MQTT
-  slug: entrega-14
-  year: 2025
-  week: 14
-  cover_imgur: https://i.imgur.com/3YVOxqL.png
-  summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://control-voz-mqtt.streamlit.app/'}
-  order: 14
-
-- title: Entrega 15 — Interfaz OCR
-  slug: entrega-15
-  year: 2025
-  week: 15
   cover_imgur: https://i.imgur.com/ABCD15.jpg
   summary: 'Breve descripción de la entrega.'
   links: {demo: ''}
+  order: 4
+
+- title: Entrega 05 — TF-IDF Español/Inglés
+  slug: entrega-05
+  year: 2025
+  week: 5
+  cover_imgur: https://i.imgur.com/fkQfLtL.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://tfidf-demo.streamlit.app/'}
+  order: 5
+
+- title: Entrega 06 — Análisis de texto inglés
+  slug: entrega-06
+  year: 2025
+  week: 6
+  cover_imgur: https://i.imgur.com/YC3sMGa.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://texto-ingles.streamlit.app/'}
+  order: 6
+
+- title: Entrega 07 — Análisis de texto Español
+  slug: entrega-07
+  year: 2025
+  week: 7
+  cover_imgur: https://i.imgur.com/IgEfzA8.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://texto-esp.streamlit.app/'}
+  order: 7
+
+- title: Entrega 08 — Reconocimiento de gestos (Yolo)
+  slug: entrega-08
+  year: 2025
+  week: 8
+  cover_imgur: https://i.imgur.com/EanoG0v.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://reconocimiento-de-gestos.streamlit.app/'}
+  order: 8
+
+- title: Entrega 09 — Reconocimiento de Objetos 
+  slug: entrega-09
+  year: 2025
+  week: 9
+  cover_imgur: https://i.imgur.com/CKsmfmw.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://deteccion-de-objetos.streamlit.app/#camara'}
+  order: 9
+
+- title: Entrega 10 — Chat PDF
+  slug: entrega-10
+  year: 2025
+  week: 10
+  cover_imgur: https://i.imgur.com/hH0RytL.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://chat-pdf-cs.streamlit.app/'}
+  order: 10
+
+- title: Entrega 11 — Imagen Text → Text
+  slug: entrega-11
+  year: 2025
+  week: 11
+  cover_imgur: https://i.imgur.com/ABCD10.jpg
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: ''}
+  order: 11
+
+- title: Entrega 12 — Reconocimiento de Imagen (Tablero)
+  slug: entrega-12
+  year: 2025
+  week: 12
+  cover_imgur: https://i.imgur.com/GBN2Qnw.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://reconocimiento-imagen-tablero.streamlit.app/'}
+  order: 12
+
+- title: Entrega 13 — Aplicación Tablero
+  slug: entrega-13
+  year: 2025
+  week: 13
+  cover_imgur: https://i.imgur.com/rujNLYE.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://aplicacion-tablero.streamlit.app/'}
+  order: 13
+
+- title: Entrega 14 — Control MQTT
+  slug: entrega-14
+  year: 2025
+  week: 14
+  cover_imgur: https://i.imgur.com/hGdFMP8.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://control-mqtt.streamlit.app/'}
+  order: 14
+
+- title: Entrega 15 — Control Voz MQTT
+  slug: entrega-15
+  year: 2025
+  week: 15
+  cover_imgur: https://i.imgur.com/3YVOxqL.png
+  summary: 'Breve descripción de la entrega.'
+  links: {demo: 'https://control-voz-mqtt.streamlit.app/'}
   order: 15
