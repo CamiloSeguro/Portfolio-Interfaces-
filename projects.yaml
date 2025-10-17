@@ -32,9 +32,9 @@
   slug: entrega-04
   year: 2025
   week: 4
-  cover_imgur: https://i.imgur.com/ABCD15.jpg
+  cover_imgur: https://i.imgur.com/2DydkX5.png
   summary: 'Breve descripción de la entrega.'
-  links: {demo: ''}
+  links: {demo: 'https://ocr-cs.streamlit.app/'}
   order: 4
 
 - title: Entrega 05 — TF-IDF Español/Inglés
