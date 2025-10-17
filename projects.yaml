@@ -19,13 +19,13 @@
   links: {demo: 'https://text-to-speech-cs.streamlit.app/'}
   order: 2
 
-- title: Entrega 03 — Análisis de Sentimiento
+- title: Entrega 03 — Voz-Texto
   slug: entrega-03
   year: 2025
   week: 3
-  cover_imgur: https://i.imgur.com/MKfYzQ3.png
+  cover_imgur: https://i.imgur.com/EYpIlxz.png
   summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://analisis-sentimiento.streamlit.app/'}
+  links: {demo: 'https://voz-text.streamlit.app/'}
   order: 3
 
 - title: Entrega 04 — TF-IDF Español/Inglés
