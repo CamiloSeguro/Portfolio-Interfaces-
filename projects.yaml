@@ -7,7 +7,7 @@
   week: 1
   cover_imgur: https://i.imgur.com/uDW8BhN.png
   summary: ''
-  links: {demo: 'https://introduccion-n.streamlit.app/'}
+  links: {demo: 'https://introduccion-cs.streamlit.app/'}
   order: 1
 
 - title: Entrega 02 — Texto-Voz
