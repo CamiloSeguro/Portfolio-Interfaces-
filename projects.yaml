@@ -19,7 +19,7 @@
   results: [Resultado 1, Resultado 2]
   metrics: [Tiempo de tarea, Errores, SUS]
   grade: null
-  links: {repo: 'https://introduccion-n.streamlit.app/', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://introduccion-n.streamlit.app/'}
   order: 1
 
 - title: Entrega 02 — Gestos con cámara
@@ -81,6 +81,7 @@
   summary: 'Breve descripción de la entrega.'
   role: Estudiante
   tools: [Figma, Prototipo]
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 4
 
 - title: Entrega 05 — Eye tracking (mock/demo)
@@ -95,6 +96,7 @@
   cover: assets/covers/entrega_05.jpg
   cover_imgur: https://i.imgur.com/ABCD05.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 5
 
 - title: Entrega 06 — Audio reactivo / Sonificación
@@ -108,6 +110,7 @@
   cover: assets/covers/entrega_06.jpg
   cover_imgur: https://i.imgur.com/ABCD06.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 6
 
 - title: Entrega 07 — Comandos por voz + GUI
@@ -121,6 +124,7 @@
   cover: assets/covers/entrega_07.jpg
   cover_imgur: https://i.imgur.com/ABCD07.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 7
 
 - title: Entrega 08 — AR marker based
@@ -134,6 +138,7 @@
   cover: assets/covers/entrega_08.jpg
   cover_imgur: https://i.imgur.com/ABCD08.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 8
 
 - title: Entrega 09 — VR prototipo guiado
@@ -147,6 +152,7 @@
   cover: assets/covers/entrega_09.jpg
   cover_imgur: https://i.imgur.com/ABCD09.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 9
 
 - title: Entrega 10 — Fusión de señales (voz+gesto)
@@ -160,6 +166,7 @@
   cover: assets/covers/entrega_10.jpg
   cover_imgur: https://i.imgur.com/ABCD10.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 10
 
 - title: Entrega 11 — Accesibilidad (lectores, contraste)
@@ -173,6 +180,7 @@
   cover: assets/covers/entrega_11.jpg
   cover_imgur: https://i.imgur.com/ABCD11.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 11
 
 - title: Entrega 12 — Dispositivo externo (ESP32/BT)
@@ -186,6 +194,7 @@
   cover: assets/covers/entrega_12.jpg
   cover_imgur: https://i.imgur.com/ABCD12.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 12
 
 - title: Entrega 13 — Evaluación heurística multimodal
@@ -199,6 +208,7 @@
   cover: assets/covers/entrega_13.jpg
   cover_imgur: https://i.imgur.com/ABCD13.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 13
 
 - title: Entrega 14 — Iteración final con métricas
@@ -212,6 +222,7 @@
   cover: assets/covers/entrega_14.jpg
   cover_imgur: https://i.imgur.com/ABCD14.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 14
 
 - title: Entrega 15 — Demo final / Video
@@ -225,4 +236,5 @@
   cover: assets/covers/entrega_15.jpg
   cover_imgur: https://i.imgur.com/ABCD15.jpg
   summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: ''}
   order: 15
