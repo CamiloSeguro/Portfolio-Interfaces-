@@ -46,9 +46,7 @@ hr{border:none;border-top:1px solid #1b1e34;margin:.8rem 0 1rem 0;}
 # -----------------------------
 IMGUR_MAP = {
     # "entrega_01.png": "https://i.imgur.com/ABCDE01.jpg",
-    # "assets/covers/entrega_01.png": "https://i.imgur.com/ABCDE01.jpg",
     # "assets/covers/entrega_03.jpg": "https://i.imgur.com/ABCDE03.jpg",
-    # ...
 }
 
 IMGUR_PLACEHOLDER = "https://i.imgur.com/U2p7Z3W.jpg"  # cámbialo si quieres
@@ -61,21 +59,14 @@ def resolve_imgur_cover(p: dict) -> str:
       3) Si p['cover'] ya es un link directo de Imgur (i.imgur.com/...), úsalo
       4) Placeholder
     """
-    # 1) Campo directo en YAML
     url = (p.get("cover_imgur") or "").strip()
     if url.startswith("https://i.imgur.com/"):
         return url
-
-    # 2) Mapa por nombre de archivo
     cover_key = (p.get("cover") or "").strip()
     if cover_key in IMGUR_MAP:
         return IMGUR_MAP[cover_key]
-
-    # 3) Si ya viene un link directo de Imgur en 'cover'
     if cover_key.startswith("https://i.imgur.com/"):
         return cover_key
-
-    # 4) Fallback
     return IMGUR_PLACEHOLDER
 
 # -----------------------------
@@ -94,6 +85,7 @@ def get_projects():
         p.setdefault("type", "")
         p.setdefault("cover", "")        # legacy (nombre de archivo)
         p.setdefault("cover_imgur", "")  # NUEVO (link directo Imgur)
+        p.setdefault("links", {})        # para leer links.demo
     return data
 
 projects = get_projects()
@@ -145,7 +137,7 @@ st.markdown(f"**{len(filtered)} proyectos encontrados**")
 st.markdown("<hr/>", unsafe_allow_html=True)
 
 # -----------------------------
-# GRID (usa SOLO Imgur)
+# GRID (usa SOLO Imgur) + link a páginas Streamlit
 # -----------------------------
 if not filtered:
     st.info("No hay resultados. Cambia los filtros o limpia la búsqueda.")
@@ -158,7 +150,9 @@ else:
         chips = "".join(f"<span class='chip'>{m}</span>" for m in p.get("modality", []))
         if p.get("device"): chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
         if p.get("type"):   chips += f"<span class='chip'>📦 {p.get('type')}</span>"
-        detail = f"/?page=Proyectos&slug={p.get('slug')}" if p.get("slug") else "#"
+
+        # ⬇️ AHORA: usa el link de Streamlit desde tu YAML (links.demo)
+        detail = p.get("links", {}).get("demo", "#")
 
         st.markdown(f"""
         <div class="card">
@@ -167,7 +161,7 @@ else:
             <div class="title">{title}</div>
             <div class="sub">{sub}</div>
             <div class="chips">{chips}</div>
-            <a class="btn" href="{detail}" target="_self">Ver detalle →</a>
+            <a class="btn" href="{detail}" target="_blank" rel="noopener">Ver detalle →</a>
           </div>
         </div>
         """, unsafe_allow_html=True)
@@ -176,4 +170,4 @@ else:
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 Pon un campo `cover_imgur` con el link directo (ej: `https://i.imgur.com/abcd123.jpg`) o rellena el `IMGUR_MAP` arriba.")
+st.caption("💡 El botón 'Ver detalle' abre el enlace de `links.demo` (página de Streamlit de cada entrega). Usa `cover_imgur` o el `IMGUR_MAP` para las portadas.")
