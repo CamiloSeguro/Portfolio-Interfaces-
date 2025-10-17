@@ -206,9 +206,9 @@
   output_types: [Reportes]
   device: PC
   cover: assets/covers/entrega_13.jpg
-  cover_imgur: https://i.imgur.com/ABCD13.jpg
+  cover_imgur: https://i.imgur.com/hGdFMP8.png
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://control-mqtt.streamlit.app/'}
   order: 13
 
 - title: Entrega 14 — Control Voz MQTT
