@@ -178,9 +178,9 @@
   output_types: [GUI/TTS]
   device: PC
   cover: assets/covers/entrega_11.jpg
-  cover_imgur: https://i.imgur.com/ABCD11.jpg
+  cover_imgur: https://i.imgur.com/GBN2Qnw.png
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://reconocimiento-imagen-tablero.streamlit.app/'}
   order: 11
 
 - title: Entrega 12 — Aplicacion Tablero
