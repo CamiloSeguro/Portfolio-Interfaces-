@@ -14,7 +14,7 @@
   slug: entrega-02
   year: 2025
   week: 2
-  cover_imgur: https://i.imgur.com/N6Arv8Z.png
+  cover_imgur: https://i.imgur.com/tyb9on6.png
   summary: 'Breve descripción de la entrega.'
   links: {demo: 'https://text-to-speech-cs.streamlit.app/'}
   order: 2
