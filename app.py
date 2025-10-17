@@ -2,6 +2,7 @@ import streamlit as st
 from lib.data import load_projects
 from itertools import chain
 from functools import lru_cache
+from urllib.parse import urlparse
 
 # -----------------------------
 # CONFIG
@@ -10,11 +11,7 @@ st.set_page_config(
     page_title="Portafolio — Interfaces Multimodales",
     page_icon="🎛️",
     layout="wide",
-    menu_items={
-        "Get help": None,
-        "Report a bug": None,
-        "About": "Portafolio académico • Interfaces Multimodales • Universidad EAFIT"
-    }
+    menu_items={"About": "Portafolio académico • Interfaces Multimodales • Universidad EAFIT"}
 )
 
 # -----------------------------
@@ -26,63 +23,30 @@ st.markdown("""
   --bg:#0E1020; --txt:#EDEEFF; --muted:#A7A8B3;
   --card:#121320; --card-b:#1E2138; --ring:#06B6D4; --ring-a:#06B6D477;
   --chip:#1B1D30; --chip-b:#282B46;
-  --ok:#22c55e; --warn:#f59e0b; --info:#06b6d4;
 }
 html, body, .stApp { background: var(--bg); color: var(--txt); }
 .block-container{ max-width: 1140px; padding-top: 1.2rem; }
-
-h1, h2, h3 { letter-spacing:.2px }
-.stMetric { background: linear-gradient(180deg, #121320, #0f1122); border:1px solid #1b1e34; border-radius:16px; padding:.6rem .8rem }
-.stMetric > div { color: var(--muted) !important }
-[data-testid="stMetricDelta"] { font-weight:600 }
-
 .grid{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px }
 @media (max-width:1100px){ .grid{ grid-template-columns: repeat(2,1fr); } }
 @media (max-width:640px){ .grid{ grid-template-columns: 1fr; } }
-
-.card{
-  background: var(--card);
-  border: 1px solid var(--card-b);
-  border-radius: 20px; overflow: hidden;
-  transition: transform .16s ease, border-color .2s ease, box-shadow .2s ease;
-  box-shadow: 0 12px 24px rgba(0,0,0,.28);
-}
+.card{ background: var(--card); border:1px solid var(--card-b); border-radius:20px; overflow:hidden;
+       transition: transform .16s ease, border-color .2s ease, box-shadow .2s ease;
+       box-shadow: 0 12px 24px rgba(0,0,0,.28); }
 .card:hover{ transform: translateY(-2px); border-color: var(--ring-a); box-shadow: 0 16px 30px rgba(6,182,212,.12); }
 .card-cover{ aspect-ratio: 16/9; width:100%; object-fit: cover; background:#0b0d1a }
-.card-body{ padding: 14px 14px 16px }
-.card-title{ font-weight: 800; margin: 0 0 6px 0; font-size: 1.02rem; letter-spacing:.2px }
-.card-sub{ color: var(--muted); font-size: .9rem; margin-bottom: 10px }
-
-.row{ display:flex; gap:8px; align-items:center; flex-wrap: wrap }
-.chip{
-  display:inline-flex; gap:.45rem; align-items:center;
-  padding:.28rem .62rem; border-radius: 999px;
-  background: var(--chip); color:#DADEF7; font-size:.78rem;
-  border:1px solid var(--chip-b)
-}
+.card-body{ padding:14px 14px 16px }
+.card-title{ font-weight:800; margin:0 0 6px 0; font-size:1.02rem; letter-spacing:.2px }
+.card-sub{ color: var(--muted); font-size:.9rem; margin-bottom:10px }
+.row{ display:flex; gap:8px; align-items:center; flex-wrap:wrap }
+.chip{ display:inline-flex; gap:.45rem; align-items:center; padding:.28rem .62rem; border-radius:999px;
+       background:#1B1D30; color:#DADEF7; font-size:.78rem; border:1px solid #282B46 }
 .chip.badge{ font-weight:700; letter-spacing:.2px; }
-
-.btn{
-  display:inline-flex; align-items:center; gap:.5rem;
-  padding:.55rem .9rem; border-radius: 999px;
-  border:1px solid #2A2A3A; text-decoration:none; color:white;
-  font-weight:700; font-size:.9rem
-}
-.btn:hover{ border-color:#3A3A4F }
-
-.skeleton{
-  position: relative; overflow: hidden; background: #14162a;
-  border:1px solid #1b1e34; border-radius:20px; aspect-ratio:16/9
-}
-.skeleton::after{
-  content:""; position:absolute; inset:0;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.06), transparent);
-  transform: translateX(-100%); animation: shimmer 1.3s infinite;
-}
-@keyframes shimmer{ 100%{ transform: translateX(100%); } }
-
+.skeleton{ position:relative; overflow:hidden; background:#14162a; border:1px solid #1b1e34; border-radius:20px; aspect-ratio:16/9 }
+.skeleton::after{ content:""; position:absolute; inset:0;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.06),transparent);
+  transform:translateX(-100%); animation:shimmer 1.3s infinite; }
+@keyframes shimmer{ 100%{ transform:translateX(100%); } }
 .small{ font-size:.9rem; color:var(--muted) }
-hr{ border:none; border-top:1px solid #1a1d33; margin: .8rem 0 1rem 0 }
 </style>
 """, unsafe_allow_html=True)
 
@@ -107,14 +71,59 @@ def get_projects():
 projects_raw = get_projects()
 
 # -----------------------------
+# IMAGE URL FIXES
+# -----------------------------
+PLACEHOLDER = "https://picsum.photos/800/450?blur=2"
+
+def resolve_cover(raw: str) -> str:
+    """
+    Arregla URLs comunes que NO cargan:
+    - http -> https
+    - GitHub con /blob/ -> raw.githubusercontent.com
+    - Paths relativos (assets/..., imgs/...) -> sirve desde /app/static si existe; si no, deja placeholder
+    """
+    if not raw:
+        return PLACEHOLDER
+
+    raw = raw.strip()
+
+    # 1) Si es relativo, intenta servirlo desde /static (Streamlit sirve /static automáticamente si existe en el repo)
+    if "://" not in raw:
+        # Ej: assets/cover.jpg -> /static/assets/cover.jpg
+        # Asegúrate de tener la carpeta 'static' y tus imágenes dentro (static/assets/cover.jpg)
+        return f"/static/{raw.lstrip('/')}"
+
+    # 2) Normaliza a https
+    if raw.startswith("http://"):
+        raw = "https://" + raw[len("http://"):]
+
+    # 3) GitHub /blob/ -> raw
+    # https://github.com/user/repo/blob/branch/path.jpg  =>  https://raw.githubusercontent.com/user/repo/branch/path.jpg
+    if "github.com" in raw and "/blob/" in raw:
+        try:
+            parts = raw.split("github.com/")[1]
+            user_repo, rest = parts.split("/blob/", 1)
+            user, repo = user_repo.split("/", 1)
+            branch, path = rest.split("/", 1)
+            raw = f"https://raw.githubusercontent.com/{user}/{repo}/{branch}/{path}"
+        except Exception:
+            pass
+
+    # 4) Dropbox link corto -> raw descargable (opcional)
+    if "dropbox.com" in raw and "dl=0" in raw:
+        raw = raw.replace("dl=0", "raw=1")
+
+    # 5) Google Drive "view?usp=sharing" NO sirve directo para <img>; se necesitaría id->uc?export=view (fuera del alcance)
+    # Dejarlo tal cual; si falla, cae el placeholder a nivel visual (no podemos detectar fallo del navegador desde el server)
+    return raw
+
+# -----------------------------
 # QUERY PARAMS helpers (compat)
 # -----------------------------
 def _get_qp():
     try:
-        # API nueva
         return {k: list(v) if isinstance(v, list) else [v] for k, v in st.query_params.items()}
     except Exception:
-        # API experimental
         return st.experimental_get_query_params()
 
 def _set_qp(**kwargs):
@@ -139,12 +148,12 @@ def get_qp_first(key:str, default:str=""):
 st.markdown("# Portafolio Académico — **Interfaces Multimodales**")
 st.caption("Universidad EAFIT · Camilo Seguro · 15 entregas")
 
-# MÉTRICAS (dataset completo)
-col1, col2, col3, col4 = st.columns(4)
-with col1: st.metric("Entregas", len(projects_raw))
-with col2: st.metric("Modalidades", len(set(chain.from_iterable(p.get("modality", []) for p in projects_raw))))
-with col3: st.metric("Dispositivos", len({p.get("device","") for p in projects_raw if p.get("device")}))
-with col4: st.metric("Año más reciente", max((p.get("year",0) for p in projects_raw), default=0))
+# Métricas (dataset completo)
+c1, c2, c3, c4 = st.columns(4)
+with c1: st.metric("Entregas", len(projects_raw))
+with c2: st.metric("Modalidades", len(set(chain.from_iterable(p.get("modality", []) for p in projects_raw))))
+with c3: st.metric("Dispositivos", len({p.get("device","") for p in projects_raw if p.get("device")}))
+with c4: st.metric("Año más reciente", max((p.get("year",0) for p in projects_raw), default=0))
 
 st.divider()
 
@@ -168,23 +177,14 @@ with st.sidebar:
     st.caption("Ordenar y vista")
     sort_by = st.selectbox("Ordenar por", options=["Más recientes", "A-Z", "Semana", "Año"], index=0)
 
-    # ---------- Vista: robust fallback ----------
+    # Vista (seguro en cualquier versión)
     def _pick_view(default_value:str):
         opts = ["Cards", "Tabla"]
-        # 1) Intentar segmented_control (firmas nuevas)
         if hasattr(st, "segmented_control"):
             try:
                 return st.segmented_control("Vista", options=opts, default_value=default_value)
-            except TypeError:
-                # Algunas builds no aceptan default_value
-                try:
-                    chosen = st.segmented_control("Vista", options=opts)
-                    return chosen or default_value
-                except Exception:
-                    pass
             except Exception:
                 pass
-        # 2) Fallback universal: radio horizontal
         idx = 0 if default_value == "Cards" else 1
         return st.radio("Vista", opts, index=idx, horizontal=True)
 
@@ -229,19 +229,20 @@ elif sort_by == "Año":
     filtered.sort(key=lambda p: (p.get("year",0), p.get("week",0)))
 
 # -----------------------------
-# TOP/DESTACADOS
+# DESTACADOS
 # -----------------------------
 featured = [p for p in filtered if p.get("featured", False)]
 if featured:
     st.subheader("Destacados ✨")
     st.markdown("<div class='grid'>", unsafe_allow_html=True)
     for p in featured[:3]:
-        cover = p.get("cover") or "https://picsum.photos/800/450?blur=2"
+        cover = resolve_cover(p.get("cover") or "")
+        if not cover: cover = PLACEHOLDER
         mods = ", ".join(p.get("modality", []))
         device = p.get("device","")
         st.markdown(f"""
         <div class="card">
-            <img class="card-cover" src="{cover}" alt="{p.get('title')}" />
+            <img class="card-cover" src="{cover}" alt="{p.get('title')}" loading="lazy" referrerpolicy="no-referrer" />
             <div class="card-body">
                 <div class="card-title">{p.get('title')}</div>
                 <div class="card-sub">{mods} · Semana {p.get('week')} · {p.get('year')}</div>
@@ -257,19 +258,10 @@ if featured:
     st.markdown("<hr/>", unsafe_allow_html=True)
 
 # -----------------------------
-# LISTA PRINCIPAL (Cards / Tabla) con paginación
+# LISTA PRINCIPAL + PAGINACIÓN
 # -----------------------------
-# Persistencia de filtros en URL
-_set_qp(
-    q=q,
-    mod=sel_modal,
-    dev=sel_dev,
-    year=[str(y) for y in sel_year],
-    view=view,
-    ps=str(page_size)
-)
+_set_qp(q=q, mod=sel_modal, dev=sel_dev, year=[str(y) for y in sel_year], view=view, ps=str(page_size))
 
-# Paginación
 total = len(filtered)
 st.subheader(f"Proyectos ({total})")
 
@@ -283,26 +275,17 @@ else:
         page = 1
     max_page = max(1, (total + page_size - 1) // page_size)
 
-    col_a, col_b, col_c = st.columns([1,2,1])
-    with col_a:
+    a, b, c = st.columns([1,2,1])
+    with a:
         if st.button("← Anterior", disabled=(page <= 1)):
             page = max(1, page - 1)
-    with col_b:
+    with b:
         st.markdown(f"<div class='small' style='text-align:center'>Página {page} de {max_page}</div>", unsafe_allow_html=True)
-    with col_c:
+    with c:
         if st.button("Siguiente →", disabled=(page >= max_page)):
             page = min(max_page, page + 1)
 
-    # Actualiza página en URL
-    _set_qp(
-        q=q,
-        mod=sel_modal,
-        dev=sel_dev,
-        year=[str(y) for y in sel_year],
-        view=view,
-        ps=str(page_size),
-        page=str(page)
-    )
+    _set_qp(q=q, mod=sel_modal, dev=sel_dev, year=[str(y) for y in sel_year], view=view, ps=str(page_size), page=str(page))
 
     start = (page - 1) * page_size
     end = start + page_size
@@ -311,13 +294,13 @@ else:
     if view == "Cards":
         st.markdown("<div class='grid'>", unsafe_allow_html=True)
         for p in page_items:
-            cover = p.get("cover") or ""
-            if not cover:
+            cov = resolve_cover(p.get("cover") or "")
+            if not cov:
                 st.markdown("""
                     <div class="card">
                         <div class="skeleton"></div>
                         <div class="card-body">
-                            <div class="card-title">Cargando…</div>
+                            <div class="card-title">Sin portada</div>
                             <div class="card-sub">—</div>
                         </div>
                     </div>""", unsafe_allow_html=True)
@@ -326,7 +309,7 @@ else:
                 device = p.get("device","")
                 st.markdown(f"""
                 <div class="card">
-                    <img class="card-cover" src="{cover}" alt="{p.get('title')}" />
+                    <img class="card-cover" src="{cov}" alt="{p.get('title')}" loading="lazy" referrerpolicy="no-referrer" />
                     <div class="card-body">
                         <div class="card-title">{p.get('title')}</div>
                         <div class="card-sub">{mods} · Semana {p.get('week')} · {p.get('year')}</div>
@@ -349,11 +332,13 @@ else:
             "Semana": p.get("week"),
             "Año": p.get("year"),
             "Tipo": p.get("type",""),
-            "Slug": p.get("slug")
+            "Slug": p.get("slug"),
+            "Cover (resuelta)": resolve_cover(p.get("cover") or "")
         } for p in page_items])
         st.dataframe(df, use_container_width=True, hide_index=True)
 
 # -----------------------------
-# NOTA / CTA
+# NOTA
 # -----------------------------
-st.info("Ve a **Proyectos** para filtrar por modalidad (voz, gestos, hápticos), dispositivo (Quest, móvil, PC), tipo de entrega y semana. También puedes compartir esta vista: la URL guarda tus filtros.")
+st.info("Tip: pon tus portadas en **/static/assets/** y usa paths como `assets/mi_portada.jpg` o usa URLs **https**.\
+ En GitHub usa enlaces *raw* (no `/blob/`).")
