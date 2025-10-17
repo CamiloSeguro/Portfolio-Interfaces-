@@ -15,7 +15,7 @@
   year: 2025
   week: 2
   cover_imgur: https://i.imgur.com/tyb9on6.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://text-to-speech-cs.streamlit.app/'}
   order: 2
 
@@ -24,7 +24,7 @@
   year: 2025
   week: 3
   cover_imgur: https://i.imgur.com/EYpIlxz.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://voz-text.streamlit.app/'}
   order: 3
 
@@ -33,7 +33,7 @@
   year: 2025
   week: 4
   cover_imgur: https://i.imgur.com/2DydkX5.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://ocr-cs.streamlit.app/'}
   order: 4
 
@@ -42,7 +42,7 @@
   year: 2025
   week: 5
   cover_imgur: https://i.imgur.com/rkUxdOy.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://sentimiento-cs.streamlit.app/'}
   order: 5
 
@@ -51,7 +51,7 @@
   year: 2025
   week: 6
   cover_imgur: https://i.imgur.com/YC3sMGa.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://texto-ingles.streamlit.app/'}
   order: 6
 
@@ -60,7 +60,7 @@
   year: 2025
   week: 7
   cover_imgur: https://i.imgur.com/IgEfzA8.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://texto-esp.streamlit.app/'}
   order: 7
 
@@ -69,7 +69,7 @@
   year: 2025
   week: 8
   cover_imgur: https://i.imgur.com/EanoG0v.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://reconocimiento-de-gestos.streamlit.app/'}
   order: 8
 
@@ -78,7 +78,7 @@
   year: 2025
   week: 9
   cover_imgur: https://i.imgur.com/CKsmfmw.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://deteccion-de-objetos.streamlit.app/#camara'}
   order: 9
 
@@ -87,7 +87,7 @@
   year: 2025
   week: 10
   cover_imgur: https://i.imgur.com/hH0RytL.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://chat-pdf-cs.streamlit.app/'}
   order: 10
 
@@ -96,7 +96,7 @@
   year: 2025
   week: 11
   cover_imgur: https://i.imgur.com/GBN2Qnw.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://reconocimiento-imagen-tablero.streamlit.app/'}
   order: 11
 
@@ -105,7 +105,7 @@
   year: 2025
   week: 12
   cover_imgur: https://i.imgur.com/KFtiz0e.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://tablero-tactil-cs.streamlit.app/'}
   order: 12
 
@@ -114,7 +114,7 @@
   year: 2025
   week: 13
   cover_imgur: https://i.imgur.com/rujNLYE.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://aplicacion-tablero.streamlit.app/'}
   order: 13
 
@@ -123,7 +123,7 @@
   year: 2025
   week: 14
   cover_imgur: https://i.imgur.com/hGdFMP8.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://control-mqtt.streamlit.app/'}
   order: 14
 
@@ -132,6 +132,6 @@
   year: 2025
   week: 15
   cover_imgur: https://i.imgur.com/3YVOxqL.png
-  summary: 'Breve descripción de la entrega.'
+  summary: ''
   links: {demo: 'https://control-voz-mqtt.streamlit.app/'}
   order: 15
