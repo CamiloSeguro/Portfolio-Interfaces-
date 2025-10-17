@@ -46,7 +46,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 2
 
-- title: Entrega 03 — Multitouch + Manipulación
+- title: Entrega 03 — Interfaz OCR
   slug: entrega-03
   year: 2025
   week: 3
@@ -67,7 +67,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 3
 
-- title: Entrega 04 — Haptics básico
+- title: Entrega 04 — Analisis de Sentimientos
   slug: entrega-04
   year: 2025
   week: 4
@@ -84,7 +84,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 4
 
-- title: Entrega 05 — Eye tracking (mock/demo)
+- title: Entrega 05 — Analisis de texto ingles
   slug: entrega-05
   year: 2025
   week: 5
