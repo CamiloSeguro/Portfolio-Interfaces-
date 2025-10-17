@@ -222,7 +222,7 @@
   cover: assets/covers/entrega_14.jpg
   cover_imgur: https://i.imgur.com/ABCD14.jpg
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://control-voz-mqtt.streamlit.app/'}
   order: 14
 
 - title: Entrega 15 — Interfaz Voz a Texto
