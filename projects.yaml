@@ -99,7 +99,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 5
 
-- title: Entrega 06 — Audio reactivo / Sonificación
+- title: Entrega 06 — Analisis de texto Español
   slug: entrega-06
   year: 2025
   week: 6
@@ -113,7 +113,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 6
 
-- title: Entrega 07 — Comandos por voz + GUI
+- title: Entrega 07 — Reconocimiento de gestos (Yolo)
   slug: entrega-07
   year: 2025
   week: 7
@@ -127,7 +127,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 7
 
-- title: Entrega 08 — AR marker based
+- title: Entrega 08 — Reconocimiento de Objetos 
   slug: entrega-08
   year: 2025
   week: 8
@@ -141,7 +141,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 8
 
-- title: Entrega 09 — VR prototipo guiado
+- title: Entrega 09 — Chat PDF
   slug: entrega-09
   year: 2025
   week: 9
@@ -155,7 +155,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 9
 
-- title: Entrega 10 — Fusión de señales (voz+gesto)
+- title: Entrega 10 — Imagen Text ---> Text
   slug: entrega-10
   year: 2025
   week: 10
@@ -169,7 +169,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 10
 
-- title: Entrega 11 — Accesibilidad (lectores, contraste)
+- title: Entrega 11 — Reconocimiento de Imagen (Tablero)
   slug: entrega-11
   year: 2025
   week: 11
@@ -183,7 +183,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 11
 
-- title: Entrega 12 — Dispositivo externo (ESP32/BT)
+- title: Entrega 12 — Aplicacion Tablero
   slug: entrega-12
   year: 2025
   week: 12
@@ -197,7 +197,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 12
 
-- title: Entrega 13 — Evaluación heurística multimodal
+- title: Entrega 13 — Control MQTT
   slug: entrega-13
   year: 2025
   week: 13
@@ -211,7 +211,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 13
 
-- title: Entrega 14 — Iteración final con métricas
+- title: Entrega 14 — Control Voz MQTT
   slug: entrega-14
   year: 2025
   week: 14
@@ -225,7 +225,7 @@
   links: {repo: '', report: '', video: '', demo: ''}
   order: 14
 
-- title: Entrega 15 — Demo final / Video
+- title: Entrega 15 — Interfaz Voz a Texto
   slug: entrega-15
   year: 2025
   week: 15
