@@ -124,7 +124,7 @@ st.divider()
 # -----------------------------
 col1, col2 = st.columns([2,1])
 with col1:
-    q = st.text_input("Buscar", placeholder="Ej: voz, texto, VR, Unity").strip().lower()
+    q = st.text_input("Buscar").strip().lower()
 with col2:
     years = sorted({p.get("year",0) for p in projects if p.get("year")}, reverse=True)
     sel_year = st.selectbox("Año", ["(Todos)"] + [str(y) for y in years], index=0)
