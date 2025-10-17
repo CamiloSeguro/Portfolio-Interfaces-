@@ -187,4 +187,4 @@ else:
 # -----------------------------
 # NOTA
 # -----------------------------
-sst.caption("Camilo Seguro ™ ")
+st.caption("💡 Camilo Seguro ™")
