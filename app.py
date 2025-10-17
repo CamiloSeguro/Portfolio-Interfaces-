@@ -217,4 +217,4 @@ else:
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 Grid compacto, títulos y resúmenes con 2 líneas (…); portadas fijas para tarjetas parejas. Los botones usan los enlaces de `links` en tu YAML.")
+st.caption("Camilo Seguro ™ ")
