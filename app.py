@@ -12,16 +12,18 @@ st.set_page_config(
 )
 
 # -----------------------------
-# ESTILOS
+# ESTILOS (simple dark + cards)
 # -----------------------------
 st.markdown("""
 <style>
 :root{--bg:#0E1020;--txt:#EDEEFF;--muted:#A7A8B3;--card:#121320;--b:#1E2138;--ring:#06B6D4;}
 html, body, .stApp{background:var(--bg);color:var(--txt);}
 .block-container{max-width:1100px;padding-top:1rem;}
+
 .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
 @media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:640px){.grid{grid-template-columns:1fr;}}
+
 .card{background:var(--card);border:1px solid var(--b);border-radius:16px;overflow:hidden;
 box-shadow:0 10px 20px rgba(0,0,0,.25);transition:transform .15s ease,border-color .2s ease;}
 .card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--ring) 50%,transparent);}
@@ -30,29 +32,68 @@ box-shadow:0 10px 20px rgba(0,0,0,.25);transition:transform .15s ease,border-col
 .title{font-weight:800;margin:0 0 6px 0;font-size:1rem;}
 .sub{color:var(--muted);font-size:.9rem;margin-bottom:8px;}
 .chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
-.chip{font-size:.75rem;padding:.22rem .5rem;border-radius:999px;border:1px solid #2a2f4b;
-background:#1a1d33;color:#dae0ff;}
-.btn{display:inline-block;font-weight:700;font-size:.9rem;color:white;border:1px solid #2a2f4b;
-border-radius:999px;padding:.45rem .75rem;text-decoration:none;}
+.chip{font-size:.75rem;padding:.22rem .5rem;border-radius:999px;border:1px solid #2a2f4b;background:#1a1d33;color:#dae0ff;}
+.btn{display:inline-block;font-weight:700;font-size:.9rem;color:white;border:1px solid #2a2f4b;border-radius:999px;padding:.45rem .75rem;text-decoration:none;}
 .btn:hover{border-color:#3b4163;}
 hr{border:none;border-top:1px solid #1b1e34;margin:.8rem 0 1rem 0;}
 </style>
 """, unsafe_allow_html=True)
 
 # -----------------------------
-# CARGAR PROYECTOS
+# IMGUR: Mapa opcional (rellénalo con tus links directos)
+# Formato: nombre_de_tu_yaml_cover -> "https://i.imgur.com/XXXXXXX.jpg"
+# Si usas campo cover_imgur directamente en el YAML, NO necesitas este mapa.
+# -----------------------------
+IMGUR_MAP = {
+    # "entrega_01.png": "https://i.imgur.com/ABCDE01.jpg",
+    # "assets/covers/entrega_01.png": "https://i.imgur.com/ABCDE01.jpg",
+    # "assets/covers/entrega_03.jpg": "https://i.imgur.com/ABCDE03.jpg",
+    # ...
+}
+
+IMGUR_PLACEHOLDER = "https://i.imgur.com/U2p7Z3W.jpg"  # cámbialo si quieres
+
+def resolve_imgur_cover(p: dict) -> str:
+    """
+    Prioriza:
+      1) p['cover_imgur'] si está en el YAML
+      2) IMGUR_MAP[ p['cover'] ]
+      3) Si p['cover'] ya es un link directo de Imgur (i.imgur.com/...), úsalo
+      4) Placeholder
+    """
+    # 1) Campo directo en YAML
+    url = (p.get("cover_imgur") or "").strip()
+    if url.startswith("https://i.imgur.com/"):
+        return url
+
+    # 2) Mapa por nombre de archivo
+    cover_key = (p.get("cover") or "").strip()
+    if cover_key in IMGUR_MAP:
+        return IMGUR_MAP[cover_key]
+
+    # 3) Si ya viene un link directo de Imgur en 'cover'
+    if cover_key.startswith("https://i.imgur.com/"):
+        return cover_key
+
+    # 4) Fallback
+    return IMGUR_PLACEHOLDER
+
+# -----------------------------
+# DATA
 # -----------------------------
 def get_projects():
     data = load_projects()
     for p in data:
+        # defaults y normalización
         p.setdefault("title", "Proyecto sin título")
-        p.setdefault("cover", "")
         p.setdefault("slug", "")
         p.setdefault("year", 0)
         p.setdefault("week", 0)
         p.setdefault("modality", [])
         p.setdefault("device", "")
         p.setdefault("type", "")
+        p.setdefault("cover", "")        # legacy (nombre de archivo)
+        p.setdefault("cover_imgur", "")  # NUEVO (link directo Imgur)
     return data
 
 projects = get_projects()
@@ -78,7 +119,7 @@ with col3:
     sel_year = st.selectbox("Año", ["(Todos)"] + [str(y) for y in years], index=0)
 
 # -----------------------------
-# FILTRAR
+# FILTRADO
 # -----------------------------
 def match(p):
     text = " ".join([
@@ -104,21 +145,19 @@ st.markdown(f"**{len(filtered)} proyectos encontrados**")
 st.markdown("<hr/>", unsafe_allow_html=True)
 
 # -----------------------------
-# GRID DE IMÁGENES (Imgur)
+# GRID (usa SOLO Imgur)
 # -----------------------------
 if not filtered:
     st.info("No hay resultados. Cambia los filtros o limpia la búsqueda.")
 else:
     st.markdown("<div class='grid'>", unsafe_allow_html=True)
     for p in filtered:
-        cover = p.get("cover") or "https://i.imgur.com/U2p7Z3W.jpg"  # placeholder
+        cover = resolve_imgur_cover(p)
         title = p.get("title")
         sub = f"{', '.join(p.get('modality', []))} · Semana {p.get('week')} · {p.get('year')}"
         chips = "".join(f"<span class='chip'>{m}</span>" for m in p.get("modality", []))
-        if p.get("device"):
-            chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
-        if p.get("type"):
-            chips += f"<span class='chip'>📦 {p.get('type')}</span>"
+        if p.get("device"): chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
+        if p.get("type"):   chips += f"<span class='chip'>📦 {p.get('type')}</span>"
         detail = f"/?page=Proyectos&slug={p.get('slug')}" if p.get("slug") else "#"
 
         st.markdown(f"""
@@ -137,4 +176,4 @@ else:
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 Sube tus imágenes a [Imgur](https://imgur.com/upload) y pega el link directo (ej: `https://i.imgur.com/abcd123.jpg`) en el campo `cover` de cada proyecto.")
+st.caption("💡 Pon un campo `cover_imgur` con el link directo (ej: `https://i.imgur.com/abcd123.jpg`) o rellena el `IMGUR_MAP` arriba.")
