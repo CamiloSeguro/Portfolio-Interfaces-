@@ -16,7 +16,7 @@
   - TTS
   - GUI
   device: PC
-  cover: entrega_01.png
+  cover: https://imgur.com/a/2h2QMoP
   summary: 'Breve descripción de la entrega: objetivo, interaccion y resultado observado.'
   role: Estudiante
   tools:
