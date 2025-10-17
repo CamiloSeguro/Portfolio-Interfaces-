@@ -108,9 +108,9 @@
   output_types: [Audio]
   device: PC
   cover: assets/covers/entrega_06.jpg
-  cover_imgur: https://i.imgur.com/ABCD06.jpg
+  cover_imgur: https://i.imgur.com/IgEfzA8.png
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://texto-esp.streamlit.app/'}
   order: 6
 
 - title: Entrega 07 — Reconocimiento de gestos (Yolo)
