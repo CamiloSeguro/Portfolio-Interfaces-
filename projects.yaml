@@ -122,9 +122,9 @@
   output_types: [TTS, GUI]
   device: PC
   cover: assets/covers/entrega_07.jpg
-  cover_imgur: https://i.imgur.com/ABCD07.jpg
+  cover_imgur: https://i.imgur.com/EanoG0v.png
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://reconocimiento-de-gestos.streamlit.app/'}
   order: 7
 
 - title: Entrega 08 — Reconocimiento de Objetos 
