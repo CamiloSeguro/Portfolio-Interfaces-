@@ -57,7 +57,7 @@
   output_types:
   - GUI
   device: PC
-  cover: assets/covers/entrega_02.jpg
+  cover: assets/covers/entrega_01.png
   summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
   role: Estudiante
   tools:
@@ -139,7 +139,7 @@
   output_types:
   - Vibracion
   device: PC
-  cover: assets/covers/entrega_04.jpg
+  cover: assets/covers/entrega_01.png
   summary: 'Breve descripcion de la entrega: objetivo, interaccion y resultado observado.'
   role: Estudiante
   tools:
