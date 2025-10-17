@@ -1,3 +1,4 @@
+import re
 import streamlit as st
 from lib.data import load_projects
 
@@ -45,17 +46,20 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
   box-shadow:0 14px 26px rgba(106,139,255,.22);
 }
 
-/* Portada: altura fija para que no crezca gigante si no carga imagen */
+/* Portada: altura fija para mantener tarjetas compactas */
 .cover{
   width:100%;
-  height:140px;             /* <- compacta */
+  height:140px;       /* ajusta a 120px si quieres aún más compacto */
   object-fit:cover;
   background:#0b0d1a;
 }
 
 /* Contenido */
 .body{ padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; }
-.title{ font-weight:800; margin:0; font-size:.98rem; line-height:1.2; }
+.title{
+  font-weight:800; margin:0; font-size:.98rem; line-height:1.2;
+  display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
+}
 .sub{ color:var(--muted); font-size:.8rem; display:flex; gap:6px; flex-wrap:wrap; }
 .badge{ padding:.12rem .45rem; border-radius:999px; border:1px solid var(--chip-b); background:var(--chip); font-size:.72rem; color:#dbe0ff; }
 .week{ background:#17213a; border-color:#2b3d66; }
@@ -81,9 +85,9 @@ hr{ border:none; border-top:1px solid #1b1e34; margin:.7rem 0 1rem 0; }
 """, unsafe_allow_html=True)
 
 # -----------------------------
-# Helpers (portadas)
+# Helpers (portadas + minify)
 # -----------------------------
-IMGUR_MAP = {}
+IMGUR_MAP = {}  # opcional si quieres mapear nombres locales -> imgur
 IMGUR_PLACEHOLDER = "https://i.imgur.com/U2p7Z3W.jpg"
 
 def resolve_imgur_cover(p: dict) -> str:
@@ -93,6 +97,11 @@ def resolve_imgur_cover(p: dict) -> str:
     if cover_key in IMGUR_MAP: return IMGUR_MAP[cover_key]
     if cover_key.startswith("https://i.imgur.com/"): return cover_key
     return IMGUR_PLACEHOLDER
+
+def minify_html(s: str) -> str:
+    s = re.sub(r">\s+<", "><", s.strip())
+    s = re.sub(r"\s{2,}", " ", s)
+    return s
 
 # -----------------------------
 # DATA
@@ -120,7 +129,7 @@ projects = get_projects()
 # HEADER
 # -----------------------------
 st.markdown("# Portafolio — **Interfaces Multimodales**")
-st.caption("Universidad EAFIT · Camilo Seguro · 15 entregas")
+st.caption(f"Universidad EAFIT · Camilo Seguro · {len(projects)} entregas")
 st.divider()
 
 # -----------------------------
@@ -156,17 +165,14 @@ st.markdown(f"<span class='count'><b>{len(filtered)}</b> proyectos encontrados</
 st.markdown("<hr/>", unsafe_allow_html=True)
 
 # -----------------------------
-# Plantilla HTML de tarjeta
+# Plantilla HTML de tarjeta (una sola línea para evitar code-blocks)
 # -----------------------------
 def card_html(p):
     cover = resolve_imgur_cover(p)
     title = p.get("title")
     week, year = p.get("week"), p.get("year")
-
     chips = "".join(f"<span class='chip'>{m}</span>" for m in p.get("modality", [])[:3])
-    if p.get("device"):
-        chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
-
+    if p.get("device"): chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
     meta = f"<span class='badge week'>Semana {week}</span><span class='badge'>{year}</span>"
 
     links = p.get("links", {})
@@ -180,28 +186,24 @@ def card_html(p):
     if repo:   btns.append(f"<a class='btn secondary' href='{repo}' target='_blank' rel='noopener'>Repo</a>")
     if video:  btns.append(f"<a class='btn secondary' href='{video}' target='_blank' rel='noopener'>Video</a>")
     if report: btns.append(f"<a class='btn secondary' href='{report}' target='_blank' rel='noopener'>Reporte</a>")
-    if not btns:
-        btns.append("<a class='btn secondary' href='#'>Sin enlaces</a>")
+    if not btns: btns.append("<a class='btn secondary' href='#'>Sin enlaces</a>")
 
-    return f"""
-    <div class="card">
-      <img class="cover" src="{cover}" alt="{title}" loading="lazy" referrerpolicy="no-referrer"/>
-      <div class="body">
-        <div class="title">{title}</div>
-        <div class="sub">{meta}</div>
-        <div class="chips">{chips}</div>
-        <div class="actions">{''.join(btns)}</div>
-      </div>
-    </div>
-    """
+    return (f"<div class='card'>"
+            f"<img class='cover' src='{cover}' alt='{title}' loading='lazy' referrerpolicy='no-referrer'/>"
+            f"<div class='body'>"
+            f"<div class='title'>{title}</div>"
+            f"<div class='sub'>{meta}</div>"
+            f"<div class='chips'>{chips}</div>"
+            f"<div class='actions'>{''.join(btns)}</div>"
+            f"</div></div>")
 
 # -----------------------------
-# RENDER: construir TODO en un solo HTML (clave para que el grid funcione)
+# Render (UNA sola llamada a Markdown)
 # -----------------------------
 def render_grid(items):
-    cards = [card_html(p) for p in items]
-    html = f"<div class='grid'>{''.join(cards)}</div>"
-    st.markdown(html, unsafe_allow_html=True)
+    cards = "".join(card_html(p) for p in items)
+    html = f"<div class='grid'>{cards}</div>"
+    st.markdown(minify_html(html), unsafe_allow_html=True)
 
 if not filtered:
     st.info("No hay resultados. Cambia los filtros o limpia la búsqueda.")
@@ -220,4 +222,4 @@ else:
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 El grid funciona porque se renderiza en **una sola llamada** a Markdown. La portada usa altura fija (140px) para mantener tarjetas compactas.")
+st.caption("💡 El grid funciona porque se renderiza en **una sola llamada** a Markdown y el HTML se **minifica** para evitar code-blocks. La portada usa altura fija (140px) para tarjetas compactas.")
