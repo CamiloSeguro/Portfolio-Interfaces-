@@ -49,17 +49,21 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
 /* Portada: altura fija para mantener tarjetas compactas */
 .cover{
   width:100%;
-  height:140px;       /* ajusta a 120px si quieres aún más compacto */
+  height:130px;       /* ajusta a 120–140px a gusto */
   object-fit:cover;
   background:#0b0d1a;
 }
 
 /* Contenido */
 .body{ padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; }
-.title{
-  font-weight:800; margin:0; font-size:.98rem; line-height:1.2;
+
+/* Line clamp 2 líneas (título y resumen) */
+.title, .summary {
   display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
 }
+.title{ font-weight:800; margin:0; font-size:.98rem; line-height:1.2; }
+.summary{ color:var(--muted); font-size:.82rem; line-height:1.3; }
+
 .sub{ color:var(--muted); font-size:.8rem; display:flex; gap:6px; flex-wrap:wrap; }
 .badge{ padding:.12rem .45rem; border-radius:999px; border:1px solid var(--chip-b); background:var(--chip); font-size:.72rem; color:#dbe0ff; }
 .week{ background:#17213a; border-color:#2b3d66; }
@@ -133,9 +137,9 @@ st.caption(f"Universidad EAFIT · Camilo Seguro · {len(projects)} entregas")
 st.divider()
 
 # -----------------------------
-# FILTROS
+# FILTROS (sin agrupar por semana)
 # -----------------------------
-col1, col2, col3, col4 = st.columns([2,1,1,1])
+col1, col2, col3 = st.columns([2,1,1])
 with col1:
     q = st.text_input("Buscar", placeholder="Ej: voz, gestos, Quest, semana 6").strip().lower()
 with col2:
@@ -144,8 +148,6 @@ with col2:
 with col3:
     years = sorted({p.get("year",0) for p in projects if p.get("year")}, reverse=True)
     sel_year = st.selectbox("Año", ["(Todos)"] + [str(y) for y in years], index=0)
-with col4:
-    group_week = st.toggle("Agrupar por semana", value=False)
 
 def match(p):
     haystack = " ".join([
@@ -174,6 +176,7 @@ def card_html(p):
     chips = "".join(f"<span class='chip'>{m}</span>" for m in p.get("modality", [])[:3])
     if p.get("device"): chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
     meta = f"<span class='badge week'>Semana {week}</span><span class='badge'>{year}</span>"
+    summary = p.get("summary") or ""
 
     links = p.get("links", {})
     demo   = links.get("demo")
@@ -193,12 +196,13 @@ def card_html(p):
             f"<div class='body'>"
             f"<div class='title'>{title}</div>"
             f"<div class='sub'>{meta}</div>"
+            f"<div class='summary'>{summary}</div>"
             f"<div class='chips'>{chips}</div>"
             f"<div class='actions'>{''.join(btns)}</div>"
             f"</div></div>")
 
 # -----------------------------
-# Render (UNA sola llamada a Markdown)
+# Render (UNA sola llamada a Markdown con minify)
 # -----------------------------
 def render_grid(items):
     cards = "".join(card_html(p) for p in items)
@@ -208,18 +212,9 @@ def render_grid(items):
 if not filtered:
     st.info("No hay resultados. Cambia los filtros o limpia la búsqueda.")
 else:
-    if group_week:
-        groups = {}
-        for p in filtered:
-            groups.setdefault((p.get("year",0), p.get("week",0)), []).append(p)
-        for (yy, ww) in sorted(groups.keys(), reverse=True):
-            st.markdown(f"### Semana {ww} · {yy}")
-            render_grid(groups[(yy, ww)])
-            st.markdown("<hr/>", unsafe_allow_html=True)
-    else:
-        render_grid(filtered)
+    render_grid(filtered)
 
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 El grid funciona porque se renderiza en **una sola llamada** a Markdown y el HTML se **minifica** para evitar code-blocks. La portada usa altura fija (140px) para tarjetas compactas.")
+st.caption("💡 Grid compacto, títulos y resúmenes con 2 líneas (…); portadas fijas para tarjetas parejas. Los botones usan los enlaces de `links` en tu YAML.")
