@@ -187,4 +187,4 @@ else:
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 Diseño limpio: solo portada, título, descripción y botón. Perfecto para portafolio visual profesional.")
+st.caption("💡 "Camilo Seguro ™")
