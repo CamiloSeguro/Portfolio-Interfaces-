@@ -11,7 +11,7 @@
   output_types: [TTS, GUI]
   device: PC
   cover: entrega_01.png
-  cover_imgur: https://i.imgur.com/z3slhf0.jpeg
+  cover_imgur: https://i.imgur.com/uDW8BhN.png
   summary: 'Breve descripción de la entrega: objetivo, interacción y resultado observado.'
   role: Estudiante
   tools: [Figma, Prototipo]
