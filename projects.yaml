@@ -136,9 +136,9 @@
   output_types: [AR Overlay]
   device: Móvil
   cover: assets/covers/entrega_08.jpg
-  cover_imgur: https://i.imgur.com/ABCD08.jpg
+  cover_imgur: https://i.imgur.com/CKsmfmw.png
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://deteccion-de-objetos.streamlit.app/#camara'}
   order: 8
 
 - title: Entrega 09 — Chat PDF
