@@ -11,7 +11,7 @@
   cover_imgur: https://i.imgur.com/abc.png
   summary: 'Breve descripción de la entrega.'
   links: {repo: '', report: '', video: '', demo: ''}
-  order: 5
+  order: 4
 
 - title: Entrega 05 — Analisis de texto ingles
   slug: entrega-05
