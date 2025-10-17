@@ -150,9 +150,9 @@
   output_types: [VR HUD]
   device: Quest 3
   cover: assets/covers/entrega_09.jpg
-  cover_imgur: https://i.imgur.com/ABCD09.jpg
+  cover_imgur: https://i.imgur.com/hH0RytL.png
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://chat-pdf-cs.streamlit.app/'}
   order: 9
 
 - title: Entrega 10 — Imagen Text ---> Text
