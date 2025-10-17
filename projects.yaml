@@ -52,6 +52,21 @@
   links: {repo: '', report: '', video: '', demo: 'https://analisis-sentimiento.streamlit.app/'}
   order: 3
 
+- title: Entrega 04 — TF-IDF Español/Inglés
+  slug: entrega-04
+  year: 2025
+  week: 4
+  deliverable: Práctica
+  modality: [Texto, GUI]
+  input_types: [Teclado]
+  output_types: [Texto, Tabla]
+  device: PC
+  cover: assets/covers/entrega_04.jpg
+  cover_imgur: https://i.imgur.com/fkQfLtL.png
+  summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: 'https://tfidf-demo.streamlit.app/'}
+  order: 4
+
 - title: Entrega 05 — Analisis de texto ingles
   slug: entrega-05
   year: 2025
