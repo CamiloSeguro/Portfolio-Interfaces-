@@ -6,7 +6,7 @@
   year: 2025
   week: 1
   cover_imgur: https://i.imgur.com/uDW8BhN.png
-  summary: 'Breve descripción de la entrega: objetivo, interacción y resultado observado.'
+  summary: ''
   links: {demo: 'https://introduccion-n.streamlit.app/'}
   order: 1
 
