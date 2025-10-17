@@ -220,7 +220,7 @@
   output_types: [GUI]
   device: PC
   cover: assets/covers/entrega_14.jpg
-  cover_imgur: https://i.imgur.com/ABCD14.jpg
+  cover_imgur: https://i.imgur.com/3YVOxqL.png
   summary: 'Breve descripción de la entrega.'
   links: {repo: '', report: '', video: '', demo: 'https://control-voz-mqtt.streamlit.app/'}
   order: 14
