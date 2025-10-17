@@ -77,11 +77,11 @@
   output_types: [Vibración]
   device: PC
   cover: assets/covers/entrega_04.png
-  cover_imgur: https://i.imgur.com/ABCD04.jpg
+  cover_imgur: https://i.imgur.com/7cnXNZs.png
   summary: 'Breve descripción de la entrega.'
   role: Estudiante
   tools: [Figma, Prototipo]
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://text2-anlizar-cs.streamlit.app/'}
   order: 4
 
 - title: Entrega 05 — Analisis de texto ingles
