@@ -95,18 +95,18 @@
   slug: entrega-11
   year: 2025
   week: 11
-  cover_imgur: https://i.imgur.com/ABCD10.jpg
+  cover_imgur: https://i.imgur.com/GBN2Qnw.png
   summary: 'Breve descripción de la entrega.'
-  links: {demo: ''}
+  links: {demo: 'https://reconocimiento-imagen-tablero.streamlit.app/'}
   order: 11
 
 - title: Entrega 12 — Reconocimiento de Imagen (Tablero)
   slug: entrega-12
   year: 2025
   week: 12
-  cover_imgur: https://i.imgur.com/GBN2Qnw.png
+  cover_imgur: https://i.imgur.com/Gabc.png
   summary: 'Breve descripción de la entrega.'
-  links: {demo: 'https://reconocimiento-imagen-tablero.streamlit.app/'}
+  links: {demo: ''}
   order: 12
 
 - title: Entrega 13 — Aplicación Tablero
