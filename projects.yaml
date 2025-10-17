@@ -1,4 +1,56 @@
+- title: Entrega 01 — Introducción
+  slug: entrega-01
+  year: 2025
+  course: Interfaces Multimodales
+  instructor: Nombre Profesor/a
+  week: 1
+  deliverable: Práctica
+  tags: [Clase, Multimodal]
+  modality: [Voz]
+  input_types: [Micrófono]
+  output_types: [TTS, GUI]
+  device: PC
+  cover: assets/covers/entrega_01.jpg
+  cover_imgur: https://i.imgur.com/uDW8BhN.png
+  summary: 'Breve descripción de la entrega: objetivo, interacción y resultado observado.'
+  role: Estudiante
+  tools: [Figma, Prototipo]
+  objectives: [Objetivo 1, Objetivo 2, Objetivo 3]
+  results: [Resultado 1, Resultado 2]
+  metrics: [Tiempo de tarea, Errores, SUS]
+  grade: null
+  links: {repo: 'https://introduccion-n.streamlit.app/', report: '', video: '', demo: ''}
+  order: 1
 
+- title: Entrega 02 — Gestos
+  slug: entrega-02
+  year: 2025
+  week: 2
+  deliverable: Práctica
+  modality: [Gestos]
+  input_types: [Mano, Cámara]
+  output_types: [GUI]
+  device: PC
+  cover: assets/covers/entrega_02.jpg
+  cover_imgur: https://i.imgur.com/N6Arv8Z.png
+  summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: 'https://gestos-cs.streamlit.app/'}
+  order: 2
+
+- title: Entrega 03 — Análisis de Sentimiento
+  slug: entrega-03
+  year: 2025
+  week: 3
+  deliverable: Práctica
+  modality: [Texto]
+  input_types: [Teclado]
+  output_types: [Gráfico, GUI]
+  device: PC
+  cover: assets/covers/entrega_03.jpg
+  cover_imgur: https://i.imgur.com/MKfYzQ3.png
+  summary: 'Breve descripción de la entrega.'
+  links: {repo: '', report: '', video: '', demo: 'https://analisis-sentimiento.streamlit.app/'}
+  order: 3
 
 - title: Entrega 05 — Analisis de texto ingles
   slug: entrega-05
