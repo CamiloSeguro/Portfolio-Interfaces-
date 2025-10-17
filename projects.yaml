@@ -194,7 +194,7 @@
   cover: assets/covers/entrega_12.jpg
   cover_imgur: https://i.imgur.com/ABCD12.jpg
   summary: 'Breve descripción de la entrega.'
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: '', report: '', video: '', demo: 'https://i.imgur.com/rujNLYE.png'}
   order: 12
 
 - title: Entrega 13 — Control MQTT
