@@ -19,7 +19,7 @@
   results: [Resultado 1, Resultado 2]
   metrics: [Tiempo de tarea, Errores, SUS]
   grade: null
-  links: {repo: '', report: '', video: '', demo: ''}
+  links: {repo: 'https://introduccion-n.streamlit.app/', report: '', video: '', demo: ''}
   order: 1
 
 - title: Entrega 02 — Gestos con cámara
