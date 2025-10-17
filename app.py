@@ -1,6 +1,5 @@
 import streamlit as st
 from lib.data import load_projects
-from itertools import chain
 
 # -----------------------------
 # CONFIG
@@ -12,61 +11,82 @@ st.set_page_config(
 )
 
 # -----------------------------
-# ESTILOS (simple dark + cards)
+# ESTILOS (grid compacto + cards)
 # -----------------------------
 st.markdown("""
 <style>
-:root{--bg:#0E1020;--txt:#EDEEFF;--muted:#A7A8B3;--card:#121320;--b:#1E2138;--ring:#06B6D4;}
+:root{
+  --bg:#0E1020; --txt:#EDEEFF; --muted:#A7A8B3; --card:#121320;
+  --b:#1E2138; --ring:#6a8bff; --chip:#1a1d33; --chip-b:#2a2f4b;
+}
 html, body, .stApp{background:var(--bg);color:var(--txt);}
-.block-container{max-width:1100px;padding-top:1rem;}
+.block-container{max-width:1200px;padding-top:1rem;}
 
-.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
-@media(max-width:1000px){.grid{grid-template-columns:repeat(2,1fr);}}
-@media(max-width:640px){.grid{grid-template-columns:1fr;}}
+/* GRID compacto */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:14px;
+}
+@media(min-width:1400px){ .grid{ grid-template-columns:repeat(4,1fr);} }
 
-.card{background:var(--card);border:1px solid var(--b);border-radius:16px;overflow:hidden;
-box-shadow:0 10px 20px rgba(0,0,0,.25);transition:transform .15s ease,border-color .2s ease;}
-.card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--ring) 50%,transparent);}
-.cover{aspect-ratio:16/9;width:100%;object-fit:cover;background:#0b0d1a;}
-.body{padding:12px 12px 14px;}
-.title{font-weight:800;margin:0 0 6px 0;font-size:1rem;}
-.sub{color:var(--muted);font-size:.9rem;margin-bottom:8px;}
-.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px;}
-.chip{font-size:.75rem;padding:.22rem .5rem;border-radius:999px;border:1px solid #2a2f4b;background:#1a1d33;color:#dae0ff;}
-.btn{display:inline-block;font-weight:700;font-size:.9rem;color:white;border:1px solid #2a2f4b;border-radius:999px;padding:.45rem .75rem;text-decoration:none;}
-.btn:hover{border-color:#3b4163;}
-hr{border:none;border-top:1px solid #1b1e34;margin:.8rem 0 1rem 0;}
+/* CARD */
+.card{
+  background:var(--card);
+  border:1px solid var(--b);
+  border-radius:14px;
+  overflow:hidden;
+  box-shadow:0 10px 18px rgba(0,0,0,.25);
+  transition:transform .15s ease,border-color .2s ease, box-shadow .2s ease;
+  display:flex; flex-direction:column;
+}
+.card:hover{
+  transform:translateY(-3px);
+  border-color:color-mix(in srgb,var(--ring) 60%,transparent);
+  box-shadow:0 14px 26px rgba(106,139,255,.22);
+}
+.cover{
+  width:100%; aspect-ratio:16/9; object-fit:cover; background:#0b0d1a;
+}
+.body{ padding:10px 12px 12px; display:flex; flex-direction:column; gap:6px; }
+.title{ font-weight:800; margin:0; font-size:.98rem; line-height:1.2; }
+.sub{ color:var(--muted); font-size:.8rem; display:flex; gap:6px; flex-wrap:wrap; }
+.badge{ padding:.12rem .45rem; border-radius:999px; border:1px solid var(--chip-b); background:var(--chip); font-size:.72rem; color:#dbe0ff; }
+.week{ background:#17213a; border-color:#2b3d66; }
+.device{ background:#182133; border-color:#2a385b; }
+
+.chips{ display:flex; gap:6px; flex-wrap:wrap; margin-top:2px;}
+.chip{ font-size:.72rem; padding:.18rem .45rem; border-radius:999px; border:1px solid var(--chip-b); background:var(--chip); color:#dbe0ff; }
+
+.actions{ display:flex; gap:6px; margin-top:6px; }
+.btn{
+  display:inline-block; text-decoration:none; text-align:center;
+  font-weight:700; font-size:.82rem; color:#fff;
+  border:1px solid #2a2f4b; border-radius:9px; padding:.38rem .55rem;
+  background:linear-gradient(120deg,#536dff,#8a5bff);
+  flex:1 1 auto;
+}
+.btn.secondary{ background:rgba(255,255,255,.06); color:#cfd6ff; }
+.btn:hover{ filter:brightness(1.05); border-color:#3b4163; }
+
+/* separadores y meta */
+hr{ border:none; border-top:1px solid #1b1e34; margin:.7rem 0 1rem 0; }
+.count{ color:var(--muted); }
 </style>
 """, unsafe_allow_html=True)
 
 # -----------------------------
-# IMGUR: Mapa opcional (rellénalo con tus links directos)
-# Formato: nombre_de_tu_yaml_cover -> "https://i.imgur.com/XXXXXXX.jpg"
-# Si usas campo cover_imgur directamente en el YAML, NO necesitas este mapa.
+# IMGUR resolver
 # -----------------------------
-IMGUR_MAP = {
-    # "entrega_01.png": "https://i.imgur.com/ABCDE01.jpg",
-    # "assets/covers/entrega_03.jpg": "https://i.imgur.com/ABCDE03.jpg",
-}
-
-IMGUR_PLACEHOLDER = "https://i.imgur.com/U2p7Z3W.jpg"  # cámbialo si quieres
+IMGUR_MAP = {}
+IMGUR_PLACEHOLDER = "https://i.imgur.com/U2p7Z3W.jpg"
 
 def resolve_imgur_cover(p: dict) -> str:
-    """
-    Prioriza:
-      1) p['cover_imgur'] si está en el YAML
-      2) IMGUR_MAP[ p['cover'] ]
-      3) Si p['cover'] ya es un link directo de Imgur (i.imgur.com/...), úsalo
-      4) Placeholder
-    """
     url = (p.get("cover_imgur") or "").strip()
-    if url.startswith("https://i.imgur.com/"):
-        return url
+    if url.startswith("https://i.imgur.com/"): return url
     cover_key = (p.get("cover") or "").strip()
-    if cover_key in IMGUR_MAP:
-        return IMGUR_MAP[cover_key]
-    if cover_key.startswith("https://i.imgur.com/"):
-        return cover_key
+    if cover_key in IMGUR_MAP: return IMGUR_MAP[cover_key]
+    if cover_key.startswith("https://i.imgur.com/"): return cover_key
     return IMGUR_PLACEHOLDER
 
 # -----------------------------
@@ -75,7 +95,6 @@ def resolve_imgur_cover(p: dict) -> str:
 def get_projects():
     data = load_projects()
     for p in data:
-        # defaults y normalización
         p.setdefault("title", "Proyecto sin título")
         p.setdefault("slug", "")
         p.setdefault("year", 0)
@@ -83,9 +102,10 @@ def get_projects():
         p.setdefault("modality", [])
         p.setdefault("device", "")
         p.setdefault("type", "")
-        p.setdefault("cover", "")        # legacy (nombre de archivo)
-        p.setdefault("cover_imgur", "")  # NUEVO (link directo Imgur)
-        p.setdefault("links", {})        # para leer links.demo
+        p.setdefault("cover", "")
+        p.setdefault("cover_imgur", "")
+        p.setdefault("summary", "")
+        p.setdefault("links", {})
     return data
 
 projects = get_projects()
@@ -98,9 +118,9 @@ st.caption("Universidad EAFIT · Camilo Seguro · 15 entregas")
 st.divider()
 
 # -----------------------------
-# FILTROS BÁSICOS
+# FILTROS
 # -----------------------------
-col1, col2, col3 = st.columns([2,1,1])
+col1, col2, col3, col4 = st.columns([2,1,1,1])
 with col1:
     q = st.text_input("Buscar", placeholder="Ej: voz, gestos, Quest, semana 6").strip().lower()
 with col2:
@@ -109,65 +129,96 @@ with col2:
 with col3:
     years = sorted({p.get("year",0) for p in projects if p.get("year")}, reverse=True)
     sel_year = st.selectbox("Año", ["(Todos)"] + [str(y) for y in years], index=0)
+with col4:
+    view_week = st.toggle("Agrupar por semana", value=False)
 
 # -----------------------------
 # FILTRADO
 # -----------------------------
 def match(p):
-    text = " ".join([
-        p.get("title",""),
-        " ".join(p.get("modality",[])),
-        p.get("device",""),
-        str(p.get("week","")),
-        str(p.get("year","")),
-        p.get("type","")
+    haystack = " ".join([
+        p.get("title",""), p.get("summary",""),
+        " ".join(p.get("modality",[])), p.get("device",""),
+        str(p.get("week","")), str(p.get("year","")), p.get("type",""), p.get("slug","")
     ]).lower()
-    if q and not all(tok in text for tok in q.split()):
-        return False
-    if sel_mod != "(Todas)" and sel_mod not in p.get("modality", []):
-        return False
-    if sel_year != "(Todos)" and str(p.get("year",0)) != sel_year:
-        return False
+    if q and not all(tok in haystack for tok in q.split()): return False
+    if sel_mod != "(Todas)" and sel_mod not in p.get("modality", []): return False
+    if sel_year != "(Todos)" and str(p.get("year",0)) != sel_year: return False
     return True
 
 filtered = [p for p in projects if match(p)]
-filtered.sort(key=lambda p: (p.get("year",0), p.get("week",0)), reverse=True)
+filtered.sort(key=lambda p: (p.get("year",0), p.get("week",0), p.get("order",0)), reverse=True)
 
-st.markdown(f"**{len(filtered)} proyectos encontrados**")
+st.markdown(f"<span class='count'><b>{len(filtered)}</b> proyectos encontrados</span>", unsafe_allow_html=True)
 st.markdown("<hr/>", unsafe_allow_html=True)
 
 # -----------------------------
-# GRID (usa SOLO Imgur) + link a páginas Streamlit
+# RENDER: GRID COMPACTO
 # -----------------------------
+def card_html(p):
+    cover = resolve_imgur_cover(p)
+    title = p.get("title")
+    week = p.get("week")
+    year = p.get("year")
+    modalities = p.get("modality", [])
+    chips = "".join(f"<span class='chip'>{m}</span>" for m in modalities[:3])  # máximo 3 visibles
+    device = p.get("device")
+    if device: chips += f"<span class='chip'>🎯 {device}</span>"
+
+    sub = f"<span class='badge week'>Semana {week}</span><span class='badge'>{year}</span>"
+    links = p.get("links", {})
+    demo   = links.get("demo")
+    repo   = links.get("repo")
+    video  = links.get("video")
+    report = links.get("report")
+
+    # Acciones (si no hay demo, se cae a slug o '#')
+    btns = []
+    if demo:   btns.append(f"<a class='btn' href='{demo}' target='_blank' rel='noopener'>Demo</a>")
+    if repo:   btns.append(f"<a class='btn secondary' href='{repo}' target='_blank' rel='noopener'>Repo</a>")
+    if video:  btns.append(f"<a class='btn secondary' href='{video}' target='_blank' rel='noopener'>Video</a>")
+    if report: btns.append(f"<a class='btn secondary' href='{report}' target='_blank' rel='noopener'>Reporte</a>")
+    if not btns:
+        btns.append("<a class='btn secondary' href='#'>Sin enlaces</a>")
+    actions = "".join(btns)
+
+    return f"""
+    <div class="card">
+      <img class="cover" src="{cover}" alt="{title}" loading="lazy" referrerpolicy="no-referrer"/>
+      <div class="body">
+        <div class="title">{title}</div>
+        <div class="sub">{sub}</div>
+        <div class="chips">{chips}</div>
+        <div class="actions">{actions}</div>
+      </div>
+    </div>
+    """
+
 if not filtered:
     st.info("No hay resultados. Cambia los filtros o limpia la búsqueda.")
 else:
-    st.markdown("<div class='grid'>", unsafe_allow_html=True)
-    for p in filtered:
-        cover = resolve_imgur_cover(p)
-        title = p.get("title")
-        sub = f"{', '.join(p.get('modality', []))} · Semana {p.get('week')} · {p.get('year')}"
-        chips = "".join(f"<span class='chip'>{m}</span>" for m in p.get("modality", []))
-        if p.get("device"): chips += f"<span class='chip'>🎯 {p.get('device')}</span>"
-        if p.get("type"):   chips += f"<span class='chip'>📦 {p.get('type')}</span>"
-
-        # ⬇️ AHORA: usa el link de Streamlit desde tu YAML (links.demo)
-        detail = p.get("links", {}).get("demo", "#")
-
-        st.markdown(f"""
-        <div class="card">
-          <img class="cover" src="{cover}" alt="{title}" loading="lazy" referrerpolicy="no-referrer"/>
-          <div class="body">
-            <div class="title">{title}</div>
-            <div class="sub">{sub}</div>
-            <div class="chips">{chips}</div>
-            <a class="btn" href="{detail}" target="_blank" rel="noopener">Ver detalle →</a>
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
-    st.markdown("</div>", unsafe_allow_html=True)
+    if view_week:
+        # Agrupado por (año, semana)
+        groups = {}
+        for p in filtered:
+            key = (p.get("year",0), p.get("week",0))
+            groups.setdefault(key, []).append(p)
+        # Orden descendente por año/semana
+        for (yy, ww) in sorted(groups.keys(), reverse=True):
+            st.markdown(f"### Semana {ww} · {yy}")
+            st.markdown("<div class='grid'>", unsafe_allow_html=True)
+            for p in groups[(yy, ww)]:
+                st.markdown(card_html(p), unsafe_allow_html=True)
+            st.markdown("</div>", unsafe_allow_html=True)
+            st.markdown("<hr/>", unsafe_allow_html=True)
+    else:
+        # Grid plano
+        st.markdown("<div class='grid'>", unsafe_allow_html=True)
+        for p in filtered:
+            st.markdown(card_html(p), unsafe_allow_html=True)
+        st.markdown("</div>", unsafe_allow_html=True)
 
 # -----------------------------
 # NOTA
 # -----------------------------
-st.caption("💡 El botón 'Ver detalle' abre el enlace de `links.demo` (página de Streamlit de cada entrega). Usa `cover_imgur` o el `IMGUR_MAP` para las portadas.")
+st.caption("💡 El botón ‘Demo’ usa `links.demo` desde tu YAML. Si no hay enlaces, se muestra ‘Sin enlaces’. Usa `cover_imgur` para portadas directas.")
