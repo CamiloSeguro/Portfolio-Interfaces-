@@ -1,11 +1,7 @@
 - title: Entrega 01 — Introducción
   slug: entrega-01
   year: 2025
-  course: Interfaces Multimodales
-  instructor: Nombre Profesor/a
   week: 1
-  deliverable: Práctica
-  tags: [Clase, Multimodal]
   modality: [Voz]
   input_types: [Micrófono]
   output_types: [TTS, GUI]
@@ -13,12 +9,6 @@
   cover: assets/covers/entrega_01.jpg
   cover_imgur: https://i.imgur.com/uDW8BhN.png
   summary: 'Breve descripción de la entrega: objetivo, interacción y resultado observado.'
-  role: Estudiante
-  tools: [Figma, Prototipo]
-  objectives: [Objetivo 1, Objetivo 2, Objetivo 3]
-  results: [Resultado 1, Resultado 2]
-  metrics: [Tiempo de tarea, Errores, SUS]
-  grade: null
   links: {repo: 'https://introduccion-n.streamlit.app/', report: '', video: '', demo: ''}
   order: 1
 
@@ -26,7 +16,6 @@
   slug: entrega-02
   year: 2025
   week: 2
-  deliverable: Práctica
   modality: [Gestos]
   input_types: [Mano, Cámara]
   output_types: [GUI]
@@ -41,7 +30,6 @@
   slug: entrega-03
   year: 2025
   week: 3
-  deliverable: Práctica
   modality: [Texto]
   input_types: [Teclado]
   output_types: [Gráfico, GUI]
@@ -56,7 +44,6 @@
   slug: entrega-04
   year: 2025
   week: 4
-  deliverable: Práctica
   modality: [Texto, GUI]
   input_types: [Teclado]
   output_types: [Texto, Tabla]
@@ -67,11 +54,10 @@
   links: {repo: '', report: '', video: '', demo: 'https://tfidf-demo.streamlit.app/'}
   order: 4
 
-- title: Entrega 05 — Analisis de texto ingles
+- title: Entrega 05 — Análisis de texto inglés
   slug: entrega-05
   year: 2025
   week: 5
-  deliverable: Practica
   modality: [Eye tracking]
   input_types: [Gaze (simulado)]
   output_types: [GUI]
@@ -82,7 +68,7 @@
   links: {repo: '', report: '', video: '', demo: 'https://texto-ingles.streamlit.app/'}
   order: 5
 
-- title: Entrega 06 — Analisis de texto Español
+- title: Entrega 06 — Análisis de texto Español
   slug: entrega-06
   year: 2025
   week: 6
@@ -138,7 +124,7 @@
   links: {repo: '', report: '', video: '', demo: 'https://chat-pdf-cs.streamlit.app/'}
   order: 9
 
-- title: Entrega 10 — Imagen Text ---> Text
+- title: Entrega 10 — Imagen Text → Text
   slug: entrega-10
   year: 2025
   week: 10
@@ -166,7 +152,7 @@
   links: {repo: '', report: '', video: '', demo: 'https://reconocimiento-imagen-tablero.streamlit.app/'}
   order: 11
 
-- title: Entrega 12 — Aplicacion Tablero
+- title: Entrega 12 — Aplicación Tablero
   slug: entrega-12
   year: 2025
   week: 12
