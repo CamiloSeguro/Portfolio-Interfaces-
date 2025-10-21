@@ -26,19 +26,23 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
 /* GRID compacto y responsivo */
 .grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-  gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:18px;
 }
 
 /* CARD */
-.card{
-  background:var(--card);
-  border:1px solid var(--b);
-  border-radius:14px;
-  overflow:hidden;
-  box-shadow:0 10px 20px rgba(0,0,0,.25);
-  transition:transform .15s ease,border-color .2s ease, box-shadow .2s ease;
-  display:flex;flex-direction:column;
+.card {
+  background: var(--card);
+  border: 1px solid var(--b);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,.25);
+  transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  height: 100%;
+  min-height: 320px; 
 }
 .card:hover{
   transform:translateY(-3px);
