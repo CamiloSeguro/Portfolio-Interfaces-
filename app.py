@@ -23,8 +23,7 @@ st.markdown("""
 html, body, .stApp{background:var(--bg);color:var(--txt);}
 .block-container{max-width:1100px;padding-top:1rem;}
 
-/* GRID compacto y responsivo */
-/* === Cards uniformes === */
+/* === GRID y TARJETAS === */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -40,9 +39,9 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
   transition: transform .15s ease, border-color .2s ease, box-shadow .2s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 👈 Fuerza que el botón quede al fondo */
+  justify-content: space-between;
   height: 100%;
-  min-height: 320px; /* 👈 asegura altura consistente */
+  min-height: 320px;
 }
 .card:hover {
   transform: translateY(-3px);
@@ -50,6 +49,7 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
   box-shadow: 0 14px 28px rgba(106,139,255,.25);
 }
 
+/* === Portada === */
 .cover {
   width: 100%;
   height: 150px;
@@ -57,11 +57,12 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
   background: #0b0d1a;
 }
 
+/* === Contenido === */
 .body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* 👈 distribuye el contenido */
+  justify-content: space-between;
   padding: 14px;
 }
 
@@ -69,46 +70,55 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
   font-weight: 800;
   font-size: .96rem;
   margin-bottom: 6px;
-  color: white;
+  color: white; /* 👈 título blanco */
 }
 
 .summary {
   color: var(--muted);
   font-size: .85rem;
   line-height: 1.3;
-  flex-grow: 1; /* 👈 llena el espacio central */
+  flex-grow: 1;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* Botón siempre igual */
+/* === Botón Demo === */
 .actions {
   margin-top: 12px;
 }
+
 .btn {
   display: block;
   width: 100%;
   text-align: center;
   font-weight: 700;
   font-size: .9rem;
-  color: #fff;
+  color: #fff !important; /* 👈 fuerza texto blanco */
   border: none;
   border-radius: 8px;
   padding: .55rem 0;
   background: linear-gradient(120deg, #536dff, #8a5bff);
-  text-decoration: none;
+  text-decoration: none !important; /* 👈 quita subrayado */
   transition: transform .15s ease, filter .2s ease;
 }
 .btn:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
+  color: #fff !important; /* 👈 asegura blanco al pasar el mouse */
 }
 .btn.secondary {
   background: rgba(255,255,255,.08);
-  color: #cfd6ff;
+  color: #cfd6ff !important;
 }
+
+/* Evita que Streamlit sobreescriba los links */
+a, a:visited, a:active {
+  color: inherit !important;
+  text-decoration: none !important;
+}
+
 
 </style>
 """, unsafe_allow_html=True)
