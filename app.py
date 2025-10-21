@@ -69,6 +69,7 @@ html, body, .stApp{background:var(--bg);color:var(--txt);}
   font-weight: 800;
   font-size: .96rem;
   margin-bottom: 6px;
+  color: white;
 }
 
 .summary {
